@@ -225,8 +225,8 @@ namespace Persistence.Migrations
                     b.Property<int>("IdBet365")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("LeagueId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
 
                     b.Property<int>("SumScore")
                         .HasColumnType("int");

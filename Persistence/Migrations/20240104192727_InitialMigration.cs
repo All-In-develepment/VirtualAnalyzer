@@ -99,7 +99,7 @@ namespace Persistence.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HomeImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AwayImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LeagueId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    LeagueId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,7 +112,7 @@ namespace Persistence.Migrations
                 {
                     VirtualLeagueId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VirtualLeagueCompetition = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    VirtualLEagueChangeDate = table.Column<bool>(type: "bit", nullable: false)
+                    VirtualLEagueChangeDate = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

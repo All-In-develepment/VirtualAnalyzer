@@ -12,8 +12,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240104153458_UpdateLeagueEntity")]
-    partial class UpdateLeagueEntity
+    [Migration("20240104192727_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -228,8 +228,8 @@ namespace Persistence.Migrations
                     b.Property<int>("IdBet365")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("LeagueId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
 
                     b.Property<int>("SumScore")
                         .HasColumnType("int");

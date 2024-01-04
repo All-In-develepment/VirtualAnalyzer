@@ -13,6 +13,6 @@ namespace Application.FutebolVirtualGames
         public DateTime Date { get; set; }
         public string HomeImg { get; set; }
         public string AwayImg { get; set; }
-        public Guid LeagueId { get; set; }
+        public int LeagueId { get; set; }
     }
 }
