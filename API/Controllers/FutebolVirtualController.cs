@@ -21,6 +21,12 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new DetailsGame.Query { Id = id }));
         }
 
+        [HttpGet("GamesTimes/{Date}/{leagueId}")]
+        public async Task<IActionResult> GetFutebolVirtualGameByDate(DateTime Date, int leagueId)
+        {
+            return HandleResult(await Mediator.Send(new DetailsGameByDate.Query { Date = Date, LeagueId = leagueId }));
+        }
+
         [HttpPost("Games")]
         public async Task<IActionResult> CreateFutebolVirtualGame(FutebolVirtualGame futebolVirtualGame)
         {

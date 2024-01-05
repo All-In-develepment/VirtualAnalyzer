@@ -9,6 +9,7 @@ import ProfilePage from "../../features/profiles/ProfilePage";
 import LoginForm from "../../features/users/LoginForm";
 import App from "../layout/App";
 import MaximasDashboard from "../../features/futebolVirtualGames/maximas/MaximasDashboard";
+import TimesDashboard from "../../features/futebolVirtualGames/times/TimesDashboard";
 
 export const routes: RouteObject[] = [
     {
@@ -25,6 +26,7 @@ export const routes: RouteObject[] = [
             {path: 'not-found', element: <NotFound />},
             {path: 'server-error', element: <ServerError />},
             {path: 'maximas', element: <MaximasDashboard />},
+            {path: 'game-times', element: <TimesDashboard />},
             {path: '*', element: <Navigate replace to='/not-found' />},
         ]
     }

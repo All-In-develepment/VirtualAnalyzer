@@ -7,6 +7,7 @@ import { User, UserFormValues } from '../models/user';
 import { router } from '../router/Routes';
 import { store } from '../stores/store';
 import { Maximas } from '../models/maximas';
+import { FutebolVirtualGames } from '../models/futebolVirtualGames';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -116,11 +117,20 @@ const Maxima = {
         .then(responseBody),
 }
 
+const FutebolVirtualGame = {
+    list: (data: Date, leagueId: number) => axios
+        .get<PaginatedResult<FutebolVirtualGames[]>>(`/futebolvirtual/GamesTimes/${data}/${leagueId}`)
+        .then(responseBody),
+    details: (id: string) => requests.get<FutebolVirtualGames>(`/futebolVirtual/${id}`),
+
+}
+
 const agent = {
     Activities,
     Account,
     Profiles,
-    Maxima
+    Maxima,
+    FutebolVirtualGame
 }
 
 export default agent;
