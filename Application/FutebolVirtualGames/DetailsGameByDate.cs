@@ -11,7 +11,8 @@ namespace Application.FutebolVirtualGames
     {
         public class Query : IRequest<Result<List<FutebolVirtualGamesDto>>>
         {
-            public DateTime Date { get; set; }
+            public DateTime InitialDate { get; set; }
+            public DateTime FinalDate { get; set; }
             public int LeagueId { get; set; }
         }
 
@@ -29,7 +30,7 @@ namespace Application.FutebolVirtualGames
             public async Task<Result<List<FutebolVirtualGamesDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var futebolVirtualGames = _context.FutebolVirtualGames
-                    .Where(d => d.Date <= request.Date && d.Date >= request.Date.AddDays(-2) && d.LeagueId == request.LeagueId)
+                    .Where(d => d.Date <= request.FinalDate && d.Date >= request.InitialDate && d.LeagueId == request.LeagueId)
                     .OrderBy(d => d.Date)
                     .ProjectTo<FutebolVirtualGamesDto>(_mapper.ConfigurationProvider)
                     .AsQueryable();

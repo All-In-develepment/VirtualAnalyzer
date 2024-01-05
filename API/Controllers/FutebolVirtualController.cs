@@ -21,10 +21,10 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new DetailsGame.Query { Id = id }));
         }
 
-        [HttpGet("GamesTimes/{Date}/{leagueId}")]
-        public async Task<IActionResult> GetFutebolVirtualGameByDate(DateTime Date, int leagueId)
+        [HttpGet("GamesTimes/{initialDate}/{finalDate}/{leagueId}")]
+        public async Task<IActionResult> GetFutebolVirtualGameByDate(DateTime initialDate,DateTime finalDate, int leagueId)
         {
-            return HandleResult(await Mediator.Send(new DetailsGameByDate.Query { Date = Date, LeagueId = leagueId }));
+            return HandleResult(await Mediator.Send(new DetailsGameByDate.Query { InitialDate = initialDate, FinalDate = finalDate, LeagueId = leagueId }));
         }
 
         [HttpPost("Games")]
