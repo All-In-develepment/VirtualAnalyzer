@@ -28,8 +28,11 @@ export default class FutebolVirtualStore {
 
   private setFutebolVirtualGame = (futebolVirtualGame: FutebolVirtualGames) => {
     this.futebolVirtualGamesRegistry.set(
-      futebolVirtualGame.Id,
+      futebolVirtualGame.id,
       futebolVirtualGame
+    );
+    this.futebolVirtualGamesRegistry.forEach((test) =>
+      console.log("alou", test)
     );
   };
 
@@ -78,7 +81,7 @@ export default class FutebolVirtualStore {
 
   get futebolVirtualGamesByDate() {
     return Array.from(this.futebolVirtualGamesRegistry.values()).sort(
-      (a, b) => a.Date!.getTime() - b.Date!.getTime()
+      (a, b) => a.date!.getTime() - b.date!.getTime()
     );
   }
 
@@ -95,12 +98,13 @@ export default class FutebolVirtualStore {
         finalDate,
         leagueId
       );
-      console.log(result);
 
-      result.forEach((futebolVirtualGame) =>
-        this.setFutebolVirtualGame(futebolVirtualGame)
-      );
-      return this.futebolVirtualGamesRegistry;
+      return result;
+
+      // result.forEach((futebolVirtualGame) =>
+      //   this.setFutebolVirtualGame(futebolVirtualGame)
+      // );
+      // return this.futebolVirtualGamesRegistry;
     } catch (error) {
       console.log(error);
       runInAction(() => {

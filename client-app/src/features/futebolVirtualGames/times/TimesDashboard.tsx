@@ -2,12 +2,13 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../../../app/stores/store";
 import { useEffect, useState } from "react";
 import moment from "moment-timezone";
+import { FutebolVirtualGames } from "../../../app/models/futebolVirtualGames";
 
 type TournamentValues = {
-  EuroCup: string;
-  CopaDoMundo: string;
-  PremierShip: string;
-  SuperLeague: string;
+  euroCup: string;
+  copaDoMundo: string;
+  premierShip: string;
+  superLeague: string;
 };
 
 export default observer(function TimesDashboard() {
@@ -15,12 +16,13 @@ export default observer(function TimesDashboard() {
   const { loadFutebolVirtualGames } = FutebolVirtualStore;
 
   const [selectedHours, setSelectedHours] = useState("3");
+  const [games, setGames] = useState<FutebolVirtualGames[]>([]);
 
   const tournamentValues: TournamentValues = {
-    EuroCup: "20700663",
-    CopaDoMundo: "20120650",
-    PremierShip: "20120653",
-    SuperLeague: "20849528",
+    euroCup: "20700663",
+    copaDoMundo: "20120650",
+    premierShip: "20120653",
+    superLeague: "20849528",
   };
 
   const handleTournamentButtonClick = async (
@@ -29,7 +31,12 @@ export default observer(function TimesDashboard() {
     const tournamentValue = tournamentValues[tournament];
 
     const { initialDate, finalDate } = adjustDate(selectedHours);
-    await loadFutebolVirtualGames(initialDate, finalDate, tournamentValue);
+    const gamesData = await loadFutebolVirtualGames(
+      initialDate,
+      finalDate,
+      tournamentValue
+    );
+    gamesData ? setGames(gamesData) : console.log("ihh rapaz");
   };
 
   function adjustDate(hour: string) {
@@ -56,16 +63,16 @@ export default observer(function TimesDashboard() {
         <h1>Times Dashboard</h1>
       </div>
       <div>
-        <button onClick={() => handleTournamentButtonClick("EuroCup")}>
+        <button onClick={() => handleTournamentButtonClick("euroCup")}>
           Euro Cup
         </button>
-        <button onClick={() => handleTournamentButtonClick("CopaDoMundo")}>
+        <button onClick={() => handleTournamentButtonClick("copaDoMundo")}>
           Copa do Mundo
         </button>
-        <button onClick={() => handleTournamentButtonClick("PremierShip")}>
+        <button onClick={() => handleTournamentButtonClick("premierShip")}>
           Premier Ship
         </button>
-        <button onClick={() => handleTournamentButtonClick("SuperLeague")}>
+        <button onClick={() => handleTournamentButtonClick("superLeague")}>
           Super League
         </button>
       </div>
@@ -80,6 +87,11 @@ export default observer(function TimesDashboard() {
         <option value="72">72 horas</option>
         <option value="96">96 horas</option>
       </select>
+
+      {games &&
+        games.map((game) => (
+          <div key={game.id}>{`${game.finalTimeResult}`}</div>
+        ))}
     </>
   );
 });
