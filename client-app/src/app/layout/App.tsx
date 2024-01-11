@@ -2,12 +2,13 @@ import { Container } from 'semantic-ui-react';
 import NavBar from './NavBar';
 import { observer } from 'mobx-react-lite';
 import { Outlet, useLocation } from 'react-router-dom';
-import HomePage from '../../features/home/HomePage';
+// import HomePage from '../../features/home/HomePage';
 import { ToastContainer } from 'react-toastify';
 import { useStore } from '../stores/store';
 import { useEffect } from 'react';
 import LoadingComponent from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
+import TimesDashboard from '../../features/futebolVirtualGames/times/TimesDashboard';
 
 function App() {
   const location = useLocation();
@@ -27,7 +28,7 @@ function App() {
     <>
       <ModalContainer />
       <ToastContainer position='bottom-right' hideProgressBar theme='colored' />
-      {location.pathname === '/' ? <HomePage /> : (
+      {location.pathname === '/' ? <TimesDashboard /> : (
         <>
           <NavBar />
           <Container style={{ marginTop: '7em' }}>

@@ -84,7 +84,7 @@ def Populator():
 						'IdBet365': int(newMatchId[pos]),
 						'HomeTeam': f'{matchHomeTeam[pos]}',
 						'AwayTeam': f'{matchAwayTeam[pos]}',
-						'SumScore': int(matchFinalSumScore[pos]),
+						'SumScore': int(0) if matchFinalResult[pos] == '0-0' else matchFinalSumScore[pos],
 						'FinalTimeResult': f'{matchFinalResult[pos]}',
 						'HalfTimeResult': f'{matchHalfResult[pos]}',
 						'Date': f'{matchDate[pos]}',
@@ -92,11 +92,15 @@ def Populator():
 						'AwayImg': f'{league['matches'][0]['AwayImg']}',
 						'LeagueId': competition[pos]
 					}
+					print(f"{parametros}")
 
 					# Realizar a solicitação POST com os dados milionarios
 
 					response = requests.post(url, data=json.dumps(parametros), headers=headers)
-					print(f"Novo jogo encontrado: {matchHomeTeam[pos]} x {matchAwayTeam[pos]} - {response.status_code}")
+					if(response.status_code == 200):
+						print(f"Novo jogo encontrado: {matchHomeTeam[pos]} x {matchAwayTeam[pos]} - {response.status_code}")
+					else:
+						print(f"Falha na solicitação POST. Código de status: {response.status_code}\n{response.text}")
 
 				pos = pos+1
 		except Exception: 

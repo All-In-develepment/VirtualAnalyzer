@@ -3,6 +3,7 @@ import { useStore } from "../../../app/stores/store";
 import { useEffect, useState } from "react";
 import moment from "moment-timezone";
 import { FutebolVirtualGames } from "../../../app/models/futebolVirtualGames";
+import { Label } from "semantic-ui-react";
 
 type TournamentValues = {
   euroCup: string;
@@ -15,7 +16,7 @@ export default observer(function TimesDashboard() {
   const { FutebolVirtualStore } = useStore();
   const { loadFutebolVirtualGames } = FutebolVirtualStore;
 
-  const [selectedHours, setSelectedHours] = useState("3");
+  const [selectedHours, setSelectedHours] = useState("12");
   const [games, setGames] = useState<FutebolVirtualGames[]>([]);
 
   const tournamentValues: TournamentValues = {
@@ -90,7 +91,9 @@ export default observer(function TimesDashboard() {
 
       {games &&
         games.map((game) => (
-          <div key={game.id}>{`${game.finalTimeResult}`}</div>
+          <Label key={game.id} color={game.sumScore%2 === 1 ? "red" : "green"}>
+            {`${game.finalTimeResult}`}
+          </Label>
         ))}
     </>
   );
