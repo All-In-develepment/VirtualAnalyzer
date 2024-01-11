@@ -8,6 +8,7 @@ using Persistence;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Text.Json;
 using Domain;
+using System.Net.Http.Json;
 
 namespace Application.FutebolVirtualGames
 {
@@ -32,44 +33,30 @@ namespace Application.FutebolVirtualGames
                 _httpClient = httpClient;
             }
 
-            // public async Task<Result<IActionResult>> Handle(Query request, CancellationToken cancellationToken)
-            // {
-            //     // Add header whit key and value
-            //     _httpClient.DefaultRequestHeaders.Add("Cookie", _context.Configurations.FirstOrDefault(x => x.ConfigurationName == "Cookie").ToString());
-            //     var response = await _httpClient.GetAsync("https://localhost:5001/api/futebolvirtualgames/max");
-            //     if (response.IsSuccessStatusCode)
-            //     {
-            //         var json = await response.Content.ReadAsStringAsync();
-            //         return Ok(Content(json, "application/json"));
-            //     }
-
-            //     return NotFound();
-            // }
-
             public async Task<string> Handle(Query request, CancellationToken cancellationToken)
             {
-                // var futebolVirtualGames = _context.FutebolVirtualGames
-                //     .Where(x => x.LeagueId == request.Params.LeagueId)
-                //     .OrderBy(d => d.Date)
-                //     .ProjectTo<FutebolVirtualGamesDto>(_mapper.ConfigurationProvider)
-                //     .AsQueryable();
+                // Cria um novo HttpClient
+                var client = new HttpClient();
 
-                // var futebolVirtualGamesToReturn = _mapper.Map<List<FutebolVirtualGamesDto>>(futebolVirtualGames);
+                // Define a URL da API
+                string url = "https://www.milionariotips.com.br/Api/view/maxima/competition/20120650";
 
-                // return Result<PagedList<FutebolVirtualGamesDto>>
-                //     .Success(await PagedList<FutebolVirtualGamesDto>
-                //     .CreateAsync(futebolVirtualGames, request.Params.PageNumber, request.Params.PageSize));
-                
-                // Add header whit key and value
-                _httpClient.DefaultRequestHeaders.Add("Cookie", _context.Configurations.FirstOrDefault(x => x.ConfigurationName == "Cookie").ToString());
-                var response = await _httpClient.GetAsync("https://localhost:5001/api/futebolvirtualgames/max");
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync();
-                    return json;
-                }
+                // Obtem o valor do cookie
+                var coockie = _context.Configurations.Where(x => x.ConfigurationName == "Cookie").FirstOrDefault().ConfigurationValue;
 
-                return 'NotFound()'.ToString();
+                // Adicionar cabeçalhos HTTP
+                client.DefaultRequestHeaders.Add("Cookie", coockie);
+
+                // Faz uma requisição GET e obtém um objeto Movie a partir do JSON
+                // var maxima = await client.GetFromJsonAsync<Maximas>(url, cancellationToken: cancellationToken);
+
+                var responseString = await client.GetStringAsync(url, cancellationToken: cancellationToken);
+
+                // Console.WriteLine(responseString);
+
+                // Console.WriteLine($"Maxima: {maxima.ToString()}");
+
+                return (responseString);
             }
         }
     }

@@ -71,10 +71,10 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new EditLeague.Command { FutebolVirtualLeagues = futebolVirtualLeague }));
         }
 
-        [HttpDelete("Leagues/{id}")]
-        public async Task<IActionResult> DeleteLeague(Guid id)
+        [HttpGet("Max")]
+        public async Task<IActionResult> GetMaximas()
         {
-            return HandleResult(await Mediator.Send(new DeleteLeague.Command { Id = id }));
+            return Ok(await Mediator.Send(new Max.Query()));
         }
     }
 }
