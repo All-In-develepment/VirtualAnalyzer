@@ -146,9 +146,9 @@ namespace GetJsonExample
     }
 
 
-    public class Program
+    public class Teste
     {
-        public static async Task Main()
+        public async Task<Maxima> Main()
         {
             // Cria um cliente HTTP
             var client = new HttpClient();
@@ -160,12 +160,14 @@ namespace GetJsonExample
             var maxima = await client.GetFromJsonAsync<Maxima>(url);
 
             // Adicionar cabeçalhos HTTP
-            client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=QfTn5zSblN6Dh8-ETjaaUhURdgv3dgHQIT9gQLi3oHI1jov01-Xk2xRqq-Gv06nY8pMiQXZcQu8Io9rWfv8pCN77SZnz1VWUHko_xx7F0Ac_7PtSNrPu38DH8uuF1OjVG7-QzPe1Ex77RJiJYOfUrs3bPFWKLjntaAwNb1b9zFlrovvgjaX3pPRQ80JgN6p14Wb_jJViYhIsFkzCygDF4I_tIHAI4G3OQ9uDERIPOnXI4n7Po1WtXpasgHgE-vPMWKb2JWtSLML0rG0XC6jbM0PSBjGUwIvaDpo2DSheiNMvRK2eybew0pX2tuW8dVFuIWvMRd-6o3v6ERajS5g5IOQ2Bvs5Ad2wUPteoXM0HrNBIvGHfVTndcqyArbw8U08SZ37eSHODpKRUFHrHaHDBo41kBTDsCXvk9mbM1gJW03U3QdqdEjy3oXP9VHwvSJpLij9Q6wbpznpC2bGzwvG49534DfYhEB31a-HzQ66uQ-XaxDg7TdZQEPrghL1J-U4; path=/; secure; HttpOnly");
+            client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=c196YbfCviSu3mM1syXsznytQFztDytwveO0pji0BHogf3V02e-ik3dOAuxt74LyA4vc7FDBHTaxzcgAc8ISvZVd3hjowywsqn8Wrl-l4-zoBSqUwcM_KYpMs1XtPnfickAD8c-K8J804zEAyzm40TiVypi4LG3PkDv0BTic_7hP81l1EuICbHvLUhTdKbzOIdgXXLeA7ZjTj6OH87ic8n_7GNerOG6o_EzAeMUNL9DnwZtnadZ2qPtn8CcdZ_jGqtQkLVt7bWz39oPbydncqKCjBFyY9oX1XUNGbyP8pexuIo2u03v0jFo0qkGMOv0o9BvD3tjxrp3tmkldMoZEpHthJ43V7G-tw9aiEtH4cKTBGmYsstiWsXY4e1R7vAD5o3kMV5Dx2Xkl3udDBixRw7oeelRnuIWJhxCEQCI4HEgaKeT2JGScCWtbv4mHq4trY3jwE4QKzIv5rNiZGu9EPaITbWC9MQCpmY-GKue0OANInsHq1LHPFaEkbd5jKgra;");
 
             // Exibe as informações do filme
             Console.WriteLine($"Name: {maxima.ListMaximas[0].Nome}");
             Console.WriteLine($"Release date: {maxima.Matches[0].Data.Date}");
             // Console.WriteLine($"Genres: {string.Join(", ", maxima.Genres)}");
+
+            return maxima;
         }
     }
 }

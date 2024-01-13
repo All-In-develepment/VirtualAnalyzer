@@ -1,26 +1,22 @@
 using Application.Core;
-using Application.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using Persistence;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.Text.Json;
 using Domain;
-using System.Net.Http.Json;
+using Newtonsoft.Json;
+using Application.Helpers;
 
 namespace Application.FutebolVirtualGames
 {
     public class Max
     {
         // Class to list the max values of the games
-        public class Query : IRequest<string>
+        public class Query : IRequest<Result<Maxima>>
         {
-            public FutebolVirtualGamesParams Params { get; set; }
+            public string League { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, string>
+        public class Handler : IRequestHandler<Query, Result<Maxima>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -33,30 +29,27 @@ namespace Application.FutebolVirtualGames
                 _httpClient = httpClient;
             }
 
-            public async Task<string> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<Maxima>> Handle(Query request, CancellationToken cancellationToken)
             {
                 // Cria um novo HttpClient
                 var client = new HttpClient();
 
                 // Define a URL da API
-                string url = "https://www.milionariotips.com.br/Api/view/maxima/competition/20120650";
+                string url = "https://www.milionariotips.com.br/Api/view/maxima/competition/" + request.League;
 
                 // Obtem o valor do cookie
                 var coockie = _context.Configurations.Where(x => x.ConfigurationName == "Cookie").FirstOrDefault().ConfigurationValue;
 
                 // Adicionar cabeçalhos HTTP
-                client.DefaultRequestHeaders.Add("Cookie", coockie);
+                // client.DefaultRequestHeaders.Add("Cookie", coockie);
 
-                // Faz uma requisição GET e obtém um objeto Movie a partir do JSON
-                // var maxima = await client.GetFromJsonAsync<Maximas>(url, cancellationToken: cancellationToken);
+                var strJson = JsonHelper.GetJSONString(url, coockie);
 
-                var responseString = await client.GetStringAsync(url, cancellationToken: cancellationToken);
+                // Converter JSON para objeto
+                var max = JsonConvert.DeserializeObject<Maxima>(strJson);
 
-                // Console.WriteLine(responseString);
-
-                // Console.WriteLine($"Maxima: {maxima.ToString()}");
-
-                return (responseString);
+                // Retorna o valor do objeto
+                return Result<Maxima>.Success(max);
             }
         }
     }

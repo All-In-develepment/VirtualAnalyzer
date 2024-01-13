@@ -71,10 +71,28 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new EditLeague.Command { FutebolVirtualLeagues = futebolVirtualLeague }));
         }
 
-        [HttpGet("Max")]
-        public async Task<IActionResult> GetMaximas()
+        [HttpGet("Max/{league}")]
+        public async Task<IActionResult> GetMaximas(string league)
         {
-            return Ok(await Mediator.Send(new Max.Query()));
+            return Ok(await Mediator.Send(new Max.Query{ League = league }));
+        }
+
+        [HttpGet("LastGames/{date}")]
+        public async Task<IActionResult> GetLastGames(string date)
+        {
+            return Ok(await Mediator.Send(new LastGames.Query{ Date = date }));
+        }
+
+        [HttpGet("Odd/{gameId}")]
+        public async Task<IActionResult> GetOdd(string gameId)
+        {
+            return Ok(await Mediator.Send(new GetOdd.Query{ GameId = gameId }));
+        }
+
+        [HttpGet("GameTime/{idCompetion}/{market}/{time}")]
+        public async Task<IActionResult> GetGameTimes(string idCompetion, string market, string time)
+        {
+            return Ok(await Mediator.Send(new GameTimes.Query{ IdCompetion = idCompetion, Market = market, Time = time }));
         }
     }
 }

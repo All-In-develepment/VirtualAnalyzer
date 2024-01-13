@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { Button, Container, Header, Segment, Image } from "semantic-ui-react";
 import { useStore } from '../../app/stores/store';
 import LoginForm from '../users/LoginForm';
@@ -20,7 +20,7 @@ export default observer(function HomePage() {
                         <Header as='h2' inverted content={`Welcome back ${userStore.user?.displayName}`} />
                         <Button as={Link} to='/activities' size='huge' inverted>
                             Go to activities!
-                        </Button>
+                        </Button> 
                     </>
                 ) : (
                     <>
