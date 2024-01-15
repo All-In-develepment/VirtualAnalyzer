@@ -2,10 +2,12 @@ import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/agent"; // Import the FutebolVirtual class
 import { Pagination, PagingParams } from "../models/pagination";
 import { FutebolVirtualGames } from "../models/futebolVirtualGames";
+import { GameTimes } from "../models/gameTimes";
 
 export default class FutebolVirtualStore {
   // load the FutebolVirtualGames ordered by date descending withouth pagination
   futebolVirtualGamesRegistry = new Map<string, FutebolVirtualGames>();
+  futebolVirtualGameTimes?: GameTimes = undefined;
   selectedFutebolVirtualGame?: FutebolVirtualGames = undefined;
   loading = false;
   loadingInitial = false;
@@ -26,7 +28,7 @@ export default class FutebolVirtualStore {
     );
   }
 
-  private setFutebolVirtualGame = (futebolVirtualGame: FutebolVirtualGames) => {
+  private setFutebolGameTime = (futebolVirtualGame: FutebolVirtualGames) => {
     this.futebolVirtualGamesRegistry.set(
       futebolVirtualGame.id,
       futebolVirtualGame
@@ -35,6 +37,10 @@ export default class FutebolVirtualStore {
       console.log("alou", test)
     );
   };
+
+  // private setFutebolVirtualGameTimes = (gameTimes: GameTimes) => {
+  //   this.futebolVirtualGameTimes.set(gameTimes.idCompetion.toString(), gameTimes);
+  // }
 
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
@@ -87,19 +93,22 @@ export default class FutebolVirtualStore {
 
   // Get the FutebolVirtualGames ordered by date descending withouth pagination
   loadFutebolVirtualGames = async (
-    initialDate: string = "",
-    finalDate: string = "",
-    leagueId: string = ""
+    leagueId: string = "",
+    market: string = "",
+    time: string = ""
   ) => {
     this.loadingInitial = true;
+    // console.log(leagueId, market, time);
     try {
       const result = await agent.FutebolVirtualGame.list(
-        initialDate,
-        finalDate,
-        leagueId
+        leagueId,
+        market,
+        time
       );
-
+      
+      // this.setFutebolVirtualGameTimes(result);
       return result;
+    
 
       // result.forEach((futebolVirtualGame) =>
       //   this.setFutebolVirtualGame(futebolVirtualGame)

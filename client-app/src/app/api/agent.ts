@@ -8,6 +8,7 @@ import { router } from "../router/Routes";
 import { store } from "../stores/store";
 import { Maximas } from "../models/maximas";
 import { FutebolVirtualGames } from "../models/futebolVirtualGames";
+import { GameTimes } from "../models/gameTimes";
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
@@ -135,12 +136,13 @@ const Maxima = {
 };
 
 const FutebolVirtualGame = {
-  list: async (initialDate: string, finalDate: string, leagueId: string) =>
-    await axios
-      .get<FutebolVirtualGames[]>(
-        `/futebolvirtual/GamesTimes/${initialDate}/${finalDate}/${leagueId}`
+  list: async (leagueId: string, market:string, time:string) =>
+    {return await axios
+      .get<GameTimes[]>(
+        `/futebolvirtual/GameTime/${leagueId}/${market}/${time}`
       )
-      .then(responseBody),
+      .then(responseBody)
+    },
   details: (id: string) =>
     requests.get<FutebolVirtualGames>(`/futebolVirtual/${id}`),
 };

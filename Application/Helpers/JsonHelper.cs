@@ -12,6 +12,7 @@ namespace Application.Helpers
                 HttpResponseMessage response = client.GetAsync(url).Result;
                 response.EnsureSuccessStatusCode();
                 string responseBody = response.Content.ReadAsStringAsync().Result;
+                // Console.WriteLine(responseBody);
                 return responseBody;
             }
         }

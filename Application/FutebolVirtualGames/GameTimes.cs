@@ -9,14 +9,14 @@ namespace Application.FutebolVirtualGames
 {
     public class GameTimes
     {
-        public class Query : IRequest<Result<GameTime>>
+        public class Query : IRequest<GameTimeDto>
         {
             public string IdCompetion { get; set; }
             public string Market { get; set; }
             public string Time { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Result<GameTime>>
+        public class Handler : IRequestHandler<Query, GameTimeDto>
         {
             private readonly DataContext _context;
 
@@ -25,7 +25,7 @@ namespace Application.FutebolVirtualGames
                 _context = context;
             }
 
-            public async Task<Result<GameTime>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<GameTimeDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 // Cria um novo HttpClient
                 var client = new HttpClient();
@@ -41,10 +41,10 @@ namespace Application.FutebolVirtualGames
                 // Console.WriteLine(strJson);
 
                 // Converter Array JSON para objeto
-                var result = JsonConvert.DeserializeObject<GameTime>(strJson);
+                var result = JsonConvert.DeserializeObject<GameTimeDto>(strJson);
 
-                // Retorna lista de objetos
-                return Result<GameTime>.Success(result);
+                // Retorna o valor do objeto
+                return result;
             }
         }
     }

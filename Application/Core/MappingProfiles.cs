@@ -49,6 +49,8 @@ namespace Application.Core
             CreateMap<FutebolVirtualLeaguesDto, FutebolVirtualLeague>();
             CreateMap<Configuration, ConfigurationDto>();
             CreateMap<ConfigurationDto, Configuration>();
+            CreateMap<GameTime, GameTimeDto>();
+            CreateMap<GameTimeDto, GameTime>();
         }
     }
 }
