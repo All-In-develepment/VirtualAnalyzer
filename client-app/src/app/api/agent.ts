@@ -138,7 +138,7 @@ const Maxima = {
 const FutebolVirtualGame = {
   list: async (leagueId: string, market:string, time:string) =>
     {return await axios
-      .get<GameTimes[]>(
+      .get<GameTimes>(
         `/futebolvirtual/GameTime/${leagueId}/${market}/${time}`
       )
       .then(responseBody)

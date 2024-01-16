@@ -107,6 +107,7 @@ export default class FutebolVirtualStore {
       );
       
       // this.setFutebolVirtualGameTimes(result);
+      this.loadingInitial = false;
       return result;
     
 
