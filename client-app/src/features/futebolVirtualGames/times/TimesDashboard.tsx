@@ -1,7 +1,17 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../app/stores/store";
 import { useEffect, useState } from "react";
-import { Grid, GridColumn, GridRow, Label, Table, TableBody, TableCell, TableHeader, TableHeaderCell } from "semantic-ui-react";
+import {
+  Grid,
+  GridColumn,
+  GridRow,
+  Label,
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableHeaderCell,
+} from "semantic-ui-react";
 import { GameTimes } from "../../../app/models/gameTimes";
 
 export default observer(function TimesDashboard() {
@@ -15,33 +25,30 @@ export default observer(function TimesDashboard() {
   const [selectedTournament, setSelectedTournament] = useState("20700663");
   const [games, setGames] = useState<GameTimes>();
 
-  async function handleTournamentButtonClick(){
+  async function handleTournamentButtonClick() {
     const gamesData = await loadFutebolVirtualGames(
       selectedTournament,
       selectedMarket,
       selectedHours
     );
-    // console.log(`gamesData: ${gamesData}`)
     gamesData ? setGames(gamesData) : console.log("ihh rapaz");
-    console.log(games)
-  };
+  }
 
-  
   const handleChangeTime = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedHours(event.target.value);
   };
-  
+
   const handleChangeMarket = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMarket(event.target.value);
   };
 
-  useEffect(() => {
-    handleTournamentButtonClick();
-  }, [
-    selectedTournament,
-    selectedMarket,
-    selectedHours,
-  ]);
+  useEffect(
+    () => {
+      handleTournamentButtonClick();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedTournament, selectedMarket, selectedHours]
+  );
 
   return (
     <>
@@ -65,7 +72,11 @@ export default observer(function TimesDashboard() {
       <Grid>
         <GridRow>
           <Label htmlFor="timeChoese">Escolha uma opção:</Label>
-          <select id="timeChoese" value={selectedHours} onChange={handleChangeTime}>
+          <select
+            id="timeChoese"
+            value={selectedHours}
+            onChange={handleChangeTime}
+          >
             <option value="3">3 horas</option>
             <option value="6">6 horas</option>
             <option value="9">9 horas</option>
@@ -76,7 +87,11 @@ export default observer(function TimesDashboard() {
           </select>
 
           <Label htmlFor="marketChoese">Escolha uma opção:</Label>
-          <select id="marketChoese" value={selectedMarket} onChange={handleChangeMarket}>
+          <select
+            id="marketChoese"
+            value={selectedMarket}
+            onChange={handleChangeMarket}
+          >
             <option value="GOLSPAR">GOLS PAR</option>
             <option value="GOLSIMPAR">GOLS IMPAR</option>
             <option value="OVER05">OVER 0,5</option>
@@ -97,25 +112,36 @@ export default observer(function TimesDashboard() {
             <TableHeaderCell></TableHeaderCell>
             {games.minutes.map((minute) => {
               return (
-                <TableHeaderCell key={keyLine++}>{minute.number}</TableHeaderCell>
-              )
+                <TableHeaderCell key={keyLine++}>
+                  {minute.number}
+                </TableHeaderCell>
+              );
             })}
           </TableHeader>
           {games.lines.map((line) => {
             return (
-                  <TableBody>
-                    <TableHeaderCell key={keyLine++}>{line.hora}</TableHeaderCell>
-                    {
-                      line.cells.map((cell) => {
-                        return (
-                          <TableCell key={keyCell++} className={cell.isGreen === true ? "positive" : (cell.tooltip !== null ? "negative" : "gray")} textAlign="center" size="large">
-                            {cell.result}
-                          </TableCell>
-                        )
-                      })
-                    }
-                  </TableBody>
-            )
+              <TableBody>
+                <TableHeaderCell key={keyLine++}>{line.hora}</TableHeaderCell>
+                {line.cells.map((cell) => {
+                  return (
+                    <TableCell
+                      key={keyCell++}
+                      className={
+                        cell.isGreen === true
+                          ? "positive"
+                          : cell.tooltip !== null
+                          ? "negative"
+                          : "gray"
+                      }
+                      textAlign="center"
+                      size="large"
+                    >
+                      {cell.result}
+                    </TableCell>
+                  );
+                })}
+              </TableBody>
+            );
           })}
         </Table>
       ) : (

@@ -129,20 +129,18 @@ const Profiles = {
 };
 
 const Maxima = {
-  list: (params: URLSearchParams) =>
-    axios
-      .get<PaginatedResult<Maximas[]>>("/maximas", { params })
+  list: async (leagueId: string) =>
+    await axios
+      .get<Maximas>(`/futebolvirtual/max/${leagueId}`)
       .then(responseBody),
 };
 
 const FutebolVirtualGame = {
-  list: async (leagueId: string, market:string, time:string) =>
-    {return await axios
-      .get<GameTimes>(
-        `/futebolvirtual/GameTime/${leagueId}/${market}/${time}`
-      )
-      .then(responseBody)
-    },
+  list: async (leagueId: string, market: string, time: string) => {
+    return await axios
+      .get<GameTimes>(`/futebolvirtual/GameTime/${leagueId}/${market}/${time}`)
+      .then(responseBody);
+  },
   details: (id: string) =>
     requests.get<FutebolVirtualGames>(`/futebolVirtual/${id}`),
 };

@@ -39,24 +39,24 @@ export default class MaximasStore {
     return params;
   }
 
-  private setMaximas = (maximas: Maximas) => {
-    this.maximasRegistry.set(maximas.id, maximas);
-  };
+  // private setMaximas = (maximas: Maximas) => {
+  //   this.maximasRegistry.set(maximas.id, maximas);
+  // };
 
-  loadMaximas = async () => {
+  loadMaximas = async (leagueId: string = "") => {
     this.loadingInitial = true;
     try {
-      console.log("tem o que aqui no maxima?", this.axiosParams);
+      const result = await agent.Maxima.list(leagueId);
 
-      const result = await agent.Maxima.list(this.axiosParams);
-      result.data.forEach((maximas) => {
-        this.setMaximas(maximas);
-      });
-      this.setPagination(result.pagination);
       this.setLoadingInitial(false);
+      return result;
+
+      // this.setPagination(result.pagination);
     } catch (error) {
       console.log(error);
-      this.setLoadingInitial(false);
+      runInAction(() => {
+        this.setLoadingInitial(false);
+      });
     }
   };
 
