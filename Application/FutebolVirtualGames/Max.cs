@@ -11,12 +11,12 @@ namespace Application.FutebolVirtualGames
     public class Max
     {
         // Class to list the max values of the games
-        public class Query : IRequest<Result<Maxima>>
+        public class Query : IRequest<MaxDto>
         {
             public string League { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Result<Maxima>>
+        public class Handler : IRequestHandler<Query, MaxDto>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace Application.FutebolVirtualGames
                 _httpClient = httpClient;
             }
 
-            public async Task<Result<Maxima>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<MaxDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 // Cria um novo HttpClient
                 var client = new HttpClient();
@@ -46,10 +46,10 @@ namespace Application.FutebolVirtualGames
                 var strJson = JsonHelper.GetJSONString(url, coockie);
 
                 // Converter JSON para objeto
-                var max = JsonConvert.DeserializeObject<Maxima>(strJson);
+                var max = JsonConvert.DeserializeObject<MaxDto>(strJson);
 
                 // Retorna o valor do objeto
-                return Result<Maxima>.Success(max);
+                return max;
             }
         }
     }

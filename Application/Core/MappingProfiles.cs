@@ -51,6 +51,8 @@ namespace Application.Core
             CreateMap<ConfigurationDto, Configuration>();
             CreateMap<GameTime, GameTimeDto>();
             CreateMap<GameTimeDto, GameTime>();
+            CreateMap<Maxima, MaxDto>();
+            CreateMap<MaxDto, Maxima>();
         }
     }
 }
