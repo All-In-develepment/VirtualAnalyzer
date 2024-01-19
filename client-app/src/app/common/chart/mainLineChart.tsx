@@ -46,7 +46,7 @@ export default observer(function MainLineChart({ over15, over25, under25, ambasM
 
     return(
         <LineChart
-            width={1000}
+            width={1100}
             height={400}
             data={data}
             margin={{
