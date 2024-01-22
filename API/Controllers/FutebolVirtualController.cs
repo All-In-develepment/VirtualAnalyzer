@@ -21,6 +21,12 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new DetailsGame.Query { Id = id }));
         }
 
+        [HttpGet("GamesTimes/{initialDate}/{finalDate}/{leagueId}")]
+        public async Task<IActionResult> GetFutebolVirtualGameByDate(DateTime initialDate,DateTime finalDate, int leagueId)
+        {
+            return HandleResult(await Mediator.Send(new DetailsGameByDate.Query { InitialDate = initialDate, FinalDate = finalDate, LeagueId = leagueId }));
+        }
+
         [HttpPost("Games")]
         public async Task<IActionResult> CreateFutebolVirtualGame(FutebolVirtualGame futebolVirtualGame)
         {
@@ -65,10 +71,28 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new EditLeague.Command { FutebolVirtualLeagues = futebolVirtualLeague }));
         }
 
-        [HttpDelete("Leagues/{id}")]
-        public async Task<IActionResult> DeleteLeague(Guid id)
+        [HttpGet("Max/{league}")]
+        public async Task<IActionResult> GetMaximas(string league)
         {
-            return HandleResult(await Mediator.Send(new DeleteLeague.Command { Id = id }));
+            return Ok(await Mediator.Send(new Max.Query{ League = league }));
+        }
+
+        [HttpGet("LastGames/{date}")]
+        public async Task<IActionResult> GetLastGames(string date)
+        {
+            return Ok(await Mediator.Send(new LastGames.Query{ Date = date }));
+        }
+
+        [HttpGet("Odd/{gameId}")]
+        public async Task<IActionResult> GetOdd(string gameId)
+        {
+            return Ok(await Mediator.Send(new GetOdd.Query{ GameId = gameId }));
+        }
+
+        [HttpGet("GameTime/{idCompetion}/{market}/{time}")]
+        public async Task<IActionResult> GetGameTimes(string idCompetion, string market, string time)
+        {
+            return Ok(await Mediator.Send(new GameTimes.Query{ IdCompetion = idCompetion, Market = market, Time = time }));
         }
     }
 }

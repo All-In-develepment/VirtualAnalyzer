@@ -10,7 +10,7 @@ namespace Application.FutebolVirtualGames
             RuleFor(x => x.IdBet365).NotEmpty();
             RuleFor(x => x.HomeTeam).NotEmpty();
             RuleFor(x => x.AwayTeam).NotEmpty();
-            RuleFor(x => x.SumScore).NotEmpty();
+            // RuleFor(x => x.SumScore).NotEmpty();
             RuleFor(x => x.FinalTimeResult).NotEmpty();
             RuleFor(x => x.HalfTimeResult).NotEmpty();
             RuleFor(x => x.Date).NotEmpty();

@@ -10,13 +10,15 @@ export default observer(function NavBar() {
             <Container>
                 <Menu.Item as={NavLink} to='/' header>
                     <img src='/assets/logo.png' alt='logo' style={{marginRight: 10}}/>
-                    Reactivities
+                    Virtual-Analyzer
                 </Menu.Item>
-                <Menu.Item as={NavLink} to='/activities' name='Activities' />
-                <Menu.Item as={NavLink} to='/errors' name='Errors' />
-                <Menu.Item>
+                {/* <Menu.Item as={NavLink} to='/activities' name='Activities' />
+                <Menu.Item as={NavLink} to='/errors' name='Errors' /> */}
+                <Menu.Item as={NavLink} to='/game-times' name="Horarios" />
+                <Menu.Item as={NavLink} to='/maximas' name="Máximas" />
+                {/* <Menu.Item>
                     <Button as={NavLink} to='/createActivity' positive content='Create Activity' />
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item position='right'>
                     <Image avatar spaced='right' src={user?.image || '/assets/user.png'} />
                     <Dropdown pointing='top left' text={user?.displayName}>

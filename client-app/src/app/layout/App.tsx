@@ -8,6 +8,7 @@ import { useStore } from '../stores/store';
 import { useEffect } from 'react';
 import LoadingComponent from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
+// import TimesDashboard from '../../features/futebolVirtualGames/times/TimesDashboard';
 
 function App() {
   const location = useLocation();

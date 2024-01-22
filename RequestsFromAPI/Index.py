@@ -7,6 +7,7 @@ from Gets.Maximas import WriteMax
 from Gets.Horarios import WriteTimes
 from Gets.LastGames import WriteLastGames
 import json
+from Populator import Populator
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -15,17 +16,12 @@ app.config['CROS_HEADERS'] = 'Content-Type'
 def Updater():
     while True:
         print("Atuliazando dependencias")
-        WriteMax()
-        print("Maximas atualizadas")
-        WriteTimes()
-        print("Horarios atualizados")
-        WriteLastGames()
-        print("Ultimos jogos atualizados")
+        # Populator()
         print("Dependencias atualizadas")
         time.sleep(60)
 
-t = threading.Thread(target=Updater)
-t.start()
+# t = threading.Thread(target=Updater)
+# t.start()
 
 print("Programa principal continuando")
 
