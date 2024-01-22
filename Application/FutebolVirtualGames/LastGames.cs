@@ -9,12 +9,12 @@ namespace Application.FutebolVirtualGames
 {
     public class LastGames
     {
-        public class Query : IRequest<Result<List<LastGame>>>
+        public class Query : IRequest<List<LastGame>>
         {
             public string Date { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Result<List<LastGame>>>
+        public class Handler : IRequestHandler<Query, List<LastGame>>
         {
             private readonly DataContext _context;
 
@@ -23,7 +23,7 @@ namespace Application.FutebolVirtualGames
                 _context = context;
             }
 
-            public async Task<Result<List<LastGame>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<LastGame>> Handle(Query request, CancellationToken cancellationToken)
             {
                 // Cria um novo HttpClient
                 var client = new HttpClient();
@@ -41,7 +41,7 @@ namespace Application.FutebolVirtualGames
                 var result = JsonConvert.DeserializeObject<LastGame[]>(strJson).ToList();
 
                 // Retorna lista de objetos
-                return Result<List<LastGame>>.Success(result);
+                return result;
             }
         }
     }

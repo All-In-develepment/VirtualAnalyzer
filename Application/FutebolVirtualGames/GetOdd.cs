@@ -9,12 +9,12 @@ namespace Application.FutebolVirtualGames
 {
     public class GetOdd
     {
-        public class Query : IRequest<Result<Odd>>
+        public class Query : IRequest<Odd>
         {
             public string GameId { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Result<Odd>>
+        public class Handler : IRequestHandler<Query, Odd>
         {
             private readonly DataContext _context;
 
@@ -23,7 +23,7 @@ namespace Application.FutebolVirtualGames
                 _context = context;
             }
 
-            public async Task<Result<Odd>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Odd> Handle(Query request, CancellationToken cancellationToken)
             {
                 // Cria um novo HttpClient
                 var client = new HttpClient();
@@ -41,7 +41,7 @@ namespace Application.FutebolVirtualGames
                 var result = JsonConvert.DeserializeObject<Odd>(strJson);
 
                 // Retorna lista de objetos
-                return Result<Odd>.Success(result);
+                return result;
             }
         }
     }

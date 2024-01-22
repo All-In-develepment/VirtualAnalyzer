@@ -1,3 +1,18 @@
+@font-face {
+  font-family: 'Tw Cen MT Condensed Extra Bold';
+  src: url('../../../public/assets/fonts/tw-cen-mt-condensed-extra-bold.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'Goldman-Regular';
+  src: url('../../../public/assets/fonts/Goldman-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Rationale';
+  src: url('../../../public/assets/fonts/Rationale-Regular.ttf') format('truetype');
+}
+
 body {
   background-color: #34495e !important;
   font-family: "Rationale";
@@ -54,4 +69,40 @@ body {
 
 .table {
   background-color: #34495e !important;
+}
+
+.leagues_buton{
+  cursor: pointer;
+}
+
+.table_detail_header {
+  background-color: #f1c40f !important;
+  color: #000 !important;
+  font-family: "Goldman-Regular" !important;
+  border-radius: 5px !important;
+}
+
+.table_detail_body {
+  background-color: none !important;
+  color: #fff !important;
+  font-family: "Rationale" !important;
+} 
+
+.span_detail{
+  font-size: small !important;
+}
+
+.font_small{
+  font-size: small !important;
+}
+
+.table_exact_score_row {
+  background-color: none !important;
+  color: #fff !important;
+  font-family: "Rationale" !important;
+  font-size: small !important;
+}
+
+.span_max{
+  color: #2ecc71;
 }

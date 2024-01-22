@@ -54,17 +54,17 @@ export default observer(function TimesDashboard() {
     <>
       <Grid>
         <GridRow columns={4} textAlign="center">
-          <GridColumn onClick={() => setSelectedTournament("20700663")}>
-            Euro Cup
+          <GridColumn onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa" >
+            <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" />
           </GridColumn>
-          <GridColumn onClick={() => setSelectedTournament("20120650")}>
-            Copa do Mundo
+          <GridColumn onClick={() => setSelectedTournament("20120650")} className="bannerCopaDoMundo" >
+            <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
           </GridColumn>
-          <GridColumn onClick={() => setSelectedTournament("20120653")}>
-            Premier Ship
+          <GridColumn onClick={() => setSelectedTournament("20120653")} className="bannerPremierShip" >
+            <img src="/assets/banners/premiership.jpg" alt="Premier League" className="leagues_buton" />
           </GridColumn>
-          <GridColumn onClick={() => setSelectedTournament("20849528")}>
-            Super League
+          <GridColumn onClick={() => setSelectedTournament("20849528")} className="bannerSuperLeague" >
+            <img src="/assets/banners/superleague.jpg" alt="Sul-Americana" className="leagues_buton" />
           </GridColumn>
         </GridRow>
       </Grid>
