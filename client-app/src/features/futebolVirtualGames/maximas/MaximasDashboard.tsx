@@ -11,7 +11,7 @@ import {
   TableCell,
 } from "semantic-ui-react";
 import { useEffect, useState } from "react";
-import { ListMaxima, Maximas } from "../../../app/models/maximas";
+import { Data, ListMaxima, Maximas } from "../../../app/models/maximas";
 import MainLineChart from "../../../app/common/chart/mainLineChart";
 import TableImparPar from "./Tables/TableImparPar";
 import TableOverGols from "./Tables/TableOverGols";
@@ -25,9 +25,11 @@ import TablePlcarExatoHT from "./Tables/TablePlcarExatoHT";
 import TablePrimeiroAMarcar from "./Tables/TablePrimeiroAMarcar";
 import TablePrimerioTimeAMarcar from "./Tables/TablePrimerioTimeAMarcar";
 import TableUltimoTimeAMarcar from "./Tables/TableUltimoTimeAMarcar";
+import Odds from "../odds/Odds";
+import modalStore from "../../../app/stores/modalStore";
 
 export default observer(function MaximasDashboard() {
-  const { MaximasStore } = useStore();
+  const { MaximasStore, modalStore } = useStore();
 
   const { loadMaximas } = MaximasStore;
 
@@ -96,24 +98,31 @@ export default observer(function MaximasDashboard() {
   // Primeiro a Marcar
   const [semMarcador, setSemMarcador] = useState<ListMaxima>();
   const [centroAvanteCasa, setCentroAvanteCasa] = useState<ListMaxima>();
-  const [centroAvanteVisitante, setCentroAvanteVisitante] = useState<ListMaxima>();
+  const [centroAvanteVisitante, setCentroAvanteVisitante] =
+    useState<ListMaxima>();
   const [pontaDireitaCasa, setPontaDireitaCasa] = useState<ListMaxima>();
-  const [pontaDireitaVisitante, setPontaDireitaVisitante] = useState<ListMaxima>();
+  const [pontaDireitaVisitante, setPontaDireitaVisitante] =
+    useState<ListMaxima>();
   const [pontaEsquerdaCasa, setPontaEsquerdaCasa] = useState<ListMaxima>();
-  const [pontaEsquerdaVisitante, setPontaEsquerdaVisitante] = useState<ListMaxima>();
+  const [pontaEsquerdaVisitante, setPontaEsquerdaVisitante] =
+    useState<ListMaxima>();
   const [meiaAtacanteCasa, setMeiaAtacanteCasa] = useState<ListMaxima>();
-  const [meiaAtacanteVisitante, setMeiaAtacanteVisitante] = useState<ListMaxima>();
+  const [meiaAtacanteVisitante, setMeiaAtacanteVisitante] =
+    useState<ListMaxima>();
   const [outroJogadorCasa, setOutroJogadorCasa] = useState<ListMaxima>();
-  const [outroJogadorVisitante, setOutroJogadorVisitante] = useState<ListMaxima>();
+  const [outroJogadorVisitante, setOutroJogadorVisitante] =
+    useState<ListMaxima>();
   // Primeiro Time a Marcar
   const [primeiroTimeCasa, setPrimeiroTimeCasa] = useState<ListMaxima>();
-  const [primeiroTimeVisitante, setPrimeiroTimeVisitante] = useState<ListMaxima>();
-  const [primeiroTimeSemMarcador, setPrimeiroTimeSemMarcador] = useState<ListMaxima>();
+  const [primeiroTimeVisitante, setPrimeiroTimeVisitante] =
+    useState<ListMaxima>();
+  const [primeiroTimeSemMarcador, setPrimeiroTimeSemMarcador] =
+    useState<ListMaxima>();
   // ultimo Time a Marcar
   const [ultimoTimeCasa, setUltimoTimeCasa] = useState<ListMaxima>();
   const [ultimoTimeVisitante, setUltimoTimeVisitante] = useState<ListMaxima>();
-  const [ultimoTimeSemMarcador, setUltimoTimeSemMarcador] = useState<ListMaxima>();
-
+  const [ultimoTimeSemMarcador, setUltimoTimeSemMarcador] =
+    useState<ListMaxima>();
 
   async function handleEffect() {
     const maximasData = await loadMaximas(selectedTournament);
@@ -129,7 +138,7 @@ export default observer(function MaximasDashboard() {
         (golPar) => golPar.nome === "gols_par"
       );
       setGolsPar(golPar!);
-      
+
       // Encontrar e setar gols impar
       const golImpar = dataTournament.listMaximas.find(
         (golImpar) => golImpar.nome === "gols_impar"
@@ -352,7 +361,7 @@ export default observer(function MaximasDashboard() {
         (score3x1) => score3x1.nome === "resultado_ft_3x1"
       );
       setScore3x1FT(score3x1Parse!);
-      
+
       // 4x4
       const score4x4Parse = dataTournament.listMaximas.find(
         (score4x4) => score4x4.nome === "resultado_ft_4x4"
@@ -436,61 +445,71 @@ export default observer(function MaximasDashboard() {
 
     // Centro Avante Casa
     const centroAvanteCasaParse = dataTournament?.listMaximas.find(
-      (centroAvanteCasa) => centroAvanteCasa.nome === "goalscorer_centro_avante_casa"
+      (centroAvanteCasa) =>
+        centroAvanteCasa.nome === "goalscorer_centro_avante_casa"
     );
     setCentroAvanteCasa(centroAvanteCasaParse!);
 
     // Centro Avante Visitante
     const centroAvanteVisitanteParse = dataTournament?.listMaximas.find(
-      (centroAvanteVisitante) => centroAvanteVisitante.nome === "goalscorer_centro_avante_fora"
+      (centroAvanteVisitante) =>
+        centroAvanteVisitante.nome === "goalscorer_centro_avante_fora"
     );
     setCentroAvanteVisitante(centroAvanteVisitanteParse!);
 
     // Ponta Direita Casa
     const pontaDireitaCasaParse = dataTournament?.listMaximas.find(
-      (pontaDireitaCasa) => pontaDireitaCasa.nome === "goalscorer_ponta_direita_casa"
+      (pontaDireitaCasa) =>
+        pontaDireitaCasa.nome === "goalscorer_ponta_direita_casa"
     );
     setPontaDireitaCasa(pontaDireitaCasaParse!);
-    
+
     // Ponta Direita Visitante
     const pontaDireitaVisitanteParse = dataTournament?.listMaximas.find(
-      (pontaDireitaVisitante) => pontaDireitaVisitante.nome === "goalscorer_ponta_direita_fora"
+      (pontaDireitaVisitante) =>
+        pontaDireitaVisitante.nome === "goalscorer_ponta_direita_fora"
     );
     setPontaDireitaVisitante(pontaDireitaVisitanteParse!);
 
     // Ponta Esquerda Casa
     const pontaEsquerdaCasaParse = dataTournament?.listMaximas.find(
-      (pontaEsquerdaCasa) => pontaEsquerdaCasa.nome === "goalscorer_ponta_esquerda_casa"
+      (pontaEsquerdaCasa) =>
+        pontaEsquerdaCasa.nome === "goalscorer_ponta_esquerda_casa"
     );
     setPontaEsquerdaCasa(pontaEsquerdaCasaParse!);
 
     // Ponta Esquerda Visitante
     const pontaEsquerdaVisitanteParse = dataTournament?.listMaximas.find(
-      (pontaEsquerdaVisitante) => pontaEsquerdaVisitante.nome === "goalscorer_ponta_esquerda_fora"
+      (pontaEsquerdaVisitante) =>
+        pontaEsquerdaVisitante.nome === "goalscorer_ponta_esquerda_fora"
     );
     setPontaEsquerdaVisitante(pontaEsquerdaVisitanteParse!);
 
     // Meia Atacante Casa
     const meiaAtacanteCasaParse = dataTournament?.listMaximas.find(
-      (meiaAtacanteCasa) => meiaAtacanteCasa.nome === "goalscorer_meia_atacante_casa"
+      (meiaAtacanteCasa) =>
+        meiaAtacanteCasa.nome === "goalscorer_meia_atacante_casa"
     );
     setMeiaAtacanteCasa(meiaAtacanteCasaParse!);
 
     // Meia Atacante Visitante
     const meiaAtacanteVisitanteParse = dataTournament?.listMaximas.find(
-      (meiaAtacanteVisitante) => meiaAtacanteVisitante.nome === "goalscorer_meia_atacante_fora"
+      (meiaAtacanteVisitante) =>
+        meiaAtacanteVisitante.nome === "goalscorer_meia_atacante_fora"
     );
     setMeiaAtacanteVisitante(meiaAtacanteVisitanteParse!);
 
     // Outro Jogador Casa
     const outroJogadorCasaParse = dataTournament?.listMaximas.find(
-      (outroJogadorCasa) => outroJogadorCasa.nome === "goalscorer_qualquer_jogador_casa"
+      (outroJogadorCasa) =>
+        outroJogadorCasa.nome === "goalscorer_qualquer_jogador_casa"
     );
     setOutroJogadorCasa(outroJogadorCasaParse!);
 
     // Outro Jogador Visitante
     const outroJogadorVisitanteParse = dataTournament?.listMaximas.find(
-      (outroJogadorVisitante) => outroJogadorVisitante.nome === "goalscorer_qualquer_jogador_fora"
+      (outroJogadorVisitante) =>
+        outroJogadorVisitante.nome === "goalscorer_qualquer_jogador_fora"
     );
     setOutroJogadorVisitante(outroJogadorVisitanteParse!);
 
@@ -503,13 +522,15 @@ export default observer(function MaximasDashboard() {
 
     // Visitante
     const primeiroTimeVisitanteParse = dataTournament?.listMaximas.find(
-      (primeiroTimeVisitante) => primeiroTimeVisitante.nome === "time_primeiro_gol_fora"
+      (primeiroTimeVisitante) =>
+        primeiroTimeVisitante.nome === "time_primeiro_gol_fora"
     );
     setPrimeiroTimeVisitante(primeiroTimeVisitanteParse!);
 
     // Sem Marcador
     const primeiroTimeSemMarcadorParse = dataTournament?.listMaximas.find(
-      (primeiroTimeSemMarcador) => primeiroTimeSemMarcador.nome === "time_primeiro_gol_nenhum"
+      (primeiroTimeSemMarcador) =>
+        primeiroTimeSemMarcador.nome === "time_primeiro_gol_nenhum"
     );
     setPrimeiroTimeSemMarcador(primeiroTimeSemMarcadorParse!);
 
@@ -522,16 +543,18 @@ export default observer(function MaximasDashboard() {
 
     // Visitante
     const ultimoTimeVisitanteParse = dataTournament?.listMaximas.find(
-      (ultimoTimeVisitante) => ultimoTimeVisitante.nome === "time_ultimo_gol_fora"
+      (ultimoTimeVisitante) =>
+        ultimoTimeVisitante.nome === "time_ultimo_gol_fora"
     );
     setUltimoTimeVisitante(ultimoTimeVisitanteParse!);
 
     // Sem Marcador
     const ultimoTimeSemMarcadorParse = dataTournament?.listMaximas.find(
-      (ultimoTimeSemMarcador) => ultimoTimeSemMarcador.nome === "time_ultimo_gol_nenhum"
+      (ultimoTimeSemMarcador) =>
+        ultimoTimeSemMarcador.nome === "time_ultimo_gol_nenhum"
     );
     setUltimoTimeSemMarcador(ultimoTimeSemMarcadorParse!);
-  },[dataTournament]);
+  }, [dataTournament]);
 
   useEffect(
     () => {
@@ -541,24 +564,57 @@ export default observer(function MaximasDashboard() {
     [selectedTournament]
   );
 
-  console.log(golsPar?.atual)
+  console.log(golsPar?.atual);
+
+  const renderOddsComponent = (leagueId: number) => {
+    console.log("a liga: ", leagueId);
+    return <Odds leagueId={String(leagueId)} />;
+  };
 
   return (
     <>
       {/* Botões de seleção de liga */}
       <Grid>
         <GridRow columns={4} textAlign="center">
-          <GridColumn onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa" >
-            <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" />
+          <GridColumn
+            onClick={() => setSelectedTournament("20700663")}
+            className="bannerEuroCopa"
+          >
+            <img
+              src="/assets/banners/euro_cup.jpg"
+              alt="Euro Cup"
+              className="leagues_buton"
+            />
           </GridColumn>
-          <GridColumn onClick={() => setSelectedTournament("20120650")} className="bannerCopaDoMundo" >
-            <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
+          <GridColumn
+            onClick={() => setSelectedTournament("20120650")}
+            className="bannerCopaDoMundo"
+          >
+            <img
+              src="/assets/banners/copa_do_mundo.jpg"
+              alt="Copa do Mundo"
+              className="leagues_buton"
+            />
           </GridColumn>
-          <GridColumn onClick={() => setSelectedTournament("20120653")} className="bannerPremierShip" >
-            <img src="/assets/banners/premiership.jpg" alt="Premier League" className="leagues_buton" />
+          <GridColumn
+            onClick={() => setSelectedTournament("20120653")}
+            className="bannerPremierShip"
+          >
+            <img
+              src="/assets/banners/premiership.jpg"
+              alt="Premier League"
+              className="leagues_buton"
+            />
           </GridColumn>
-          <GridColumn onClick={() => setSelectedTournament("20849528")} className="bannerSuperLeague" >
-            <img src="/assets/banners/superleague.jpg" alt="Sul-Americana" className="leagues_buton" />
+          <GridColumn
+            onClick={() => setSelectedTournament("20849528")}
+            className="bannerSuperLeague"
+          >
+            <img
+              src="/assets/banners/superleague.jpg"
+              alt="Sul-Americana"
+              className="leagues_buton"
+            />
           </GridColumn>
         </GridRow>
       </Grid>
@@ -566,7 +622,7 @@ export default observer(function MaximasDashboard() {
       {/* Gráfico */}
       {dataTournament && (
         <Grid textAlign="center">
-          <MainLineChart 
+          <MainLineChart
             over15={dataTournament.chart.over15}
             over25={dataTournament.chart.over25}
             under25={dataTournament.chart.under25}
@@ -584,240 +640,272 @@ export default observer(function MaximasDashboard() {
         </Grid>
       )}
 
-      {golsPar &&(
-      <Grid>
-        <GridRow columns={2} textAlign="center">
-          {/* Primeir Coluna */}
-          <GridColumn >
-            <Table>
-              <Table.Header textAlign="center" className="table_detail_header">
-                <Table.Cell></Table.Cell>
-                <Table.Cell>Hora</Table.Cell>
-                <Table.Cell></Table.Cell>
-                <TableCell>Casa</TableCell>
-                <TableCell>Placar</TableCell>
-                <TableCell>Visitante</TableCell>
-                <TableCell></TableCell>
-              </Table.Header>
-              <Table.Body className="table_detail_body">
-                {dataTournament?.matches.map((match) => (
-                  <Table.Row key={match.data.id}>
-                    <Table.Cell>
-                      <Button>
-                        ODDS
-                      </Button>
-                    </Table.Cell>
-                    <Table.Cell>{match.data.date.split("T")[1]}</Table.Cell>
-                    <Table.Cell>
-                      {match.homeTop3.map((homeTop) => (
-                        homeTop.idTeamWinner === homeTop.idTeamHome ? <Label color="green">V</Label> : homeTop.finalTimeDraw === true ? <Label color="yellow">E</Label> : <Label color="red">D</Label>
-                      ))}
-                    </Table.Cell>
-                    <Table.Cell><img src={`/assets/flags/${match.data.homeImg}`} alt={match.data.homeImg} width={60} />{match.data.teamHome}</Table.Cell>
-                    <Table.Cell>{match.data.finalTimeResult}</Table.Cell>
-                    <Table.Cell><img src={`/assets/flags/${match.data.awayImg}`} alt={match.data.awayImg} width={60} />{match.data.teamAway}</Table.Cell>
-                    <Table.Cell>
-                      {match.awayTop3.map((awayTop) => (
-                        awayTop.idTeamWinner === awayTop.idTeamAway ? 
-                          <Label color="green">V</Label> : 
-                          awayTop.finalTimeDraw === true ? 
-                            <Label color="yellow">E</Label> : 
+      {golsPar && (
+        <Grid>
+          <GridRow columns={2} textAlign="center">
+            {/* Primeir Coluna */}
+            <GridColumn>
+              <Table>
+                <Table.Header
+                  textAlign="center"
+                  className="table_detail_header"
+                >
+                  <Table.Cell></Table.Cell>
+                  <Table.Cell>Hora</Table.Cell>
+                  <Table.Cell></Table.Cell>
+                  <TableCell>Casa</TableCell>
+                  <TableCell>Placar</TableCell>
+                  <TableCell>Visitante</TableCell>
+                  <TableCell></TableCell>
+                </Table.Header>
+                <Table.Body className="table_detail_body">
+                  {dataTournament?.matches.map((match) => (
+                    <Table.Row key={match.data.id}>
+                      <Table.Cell>
+                        <Button
+                          onClick={() =>
+                            modalStore.openModal(
+                              <Odds leagueId={String(match.data.id)} />
+                            )
+                          }
+                          size="huge"
+                          inverted
+                        >
+                          ODDS
+                        </Button>
+                      </Table.Cell>
+                      <Table.Cell>{match.data.date.split("T")[1]}</Table.Cell>
+                      <Table.Cell>
+                        {match.homeTop3.map((homeTop) =>
+                          homeTop.idTeamWinner === homeTop.idTeamHome ? (
+                            <Label color="green">V</Label>
+                          ) : homeTop.finalTimeDraw === true ? (
+                            <Label color="yellow">E</Label>
+                          ) : (
                             <Label color="red">D</Label>
-                      ))}
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </GridColumn>
-          
-          {/* Segunda Coluna */}
-          <GridColumn >
-            {/* Sessão PAR / IMPAR */}
-            <TableImparPar 
-              parAtual={golsPar!.atual}
-              parMaxima={golsPar!.maxima}
-              imparAtual={golsImpar!.atual}
-              imparMaxima={golsImpar!.maxima}
-            />
+                          )
+                        )}
+                      </Table.Cell>
+                      <Table.Cell>
+                        <img
+                          src={`/assets/flags/${match.data.homeImg}`}
+                          alt={match.data.homeImg}
+                          width={60}
+                        />
+                        {match.data.teamHome}
+                      </Table.Cell>
+                      <Table.Cell>{match.data.finalTimeResult}</Table.Cell>
+                      <Table.Cell>
+                        <img
+                          src={`/assets/flags/${match.data.awayImg}`}
+                          alt={match.data.awayImg}
+                          width={60}
+                        />
+                        {match.data.teamAway}
+                      </Table.Cell>
+                      <Table.Cell>
+                        {match.awayTop3.map((awayTop) =>
+                          awayTop.idTeamWinner === awayTop.idTeamAway ? (
+                            <Label color="green">V</Label>
+                          ) : awayTop.finalTimeDraw === true ? (
+                            <Label color="yellow">E</Label>
+                          ) : (
+                            <Label color="red">D</Label>
+                          )
+                        )}
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table>
+            </GridColumn>
 
-            {/* Sessão OVER GOLS */}
-            <TableOverGols
-              over05Atual={over05!.atual}
-              over05Maxima={over05!.maxima}
-              over15Atual={over15!.atual}
-              over15Maxima={over15!.maxima}
-              over25Atual={over25!.atual}
-              over25Maxima={over25!.maxima}
-              over35Atual={over35!.atual}
-              over35Maxima={over35!.maxima}
-            />
+            {/* Segunda Coluna */}
+            <GridColumn>
+              {/* Sessão PAR / IMPAR */}
+              <TableImparPar
+                parAtual={golsPar!.atual}
+                parMaxima={golsPar!.maxima}
+                imparAtual={golsImpar!.atual}
+                imparMaxima={golsImpar!.maxima}
+              />
 
-            {/* Sessão UNDER GOLS */}
-            <TableUnderGols
-              under05Atual={under05!.atual}
-              under05Maxima={under05!.maxima}
-              under15Atual={under15!.atual}
-              under15Maxima={under15!.maxima}
-              under25Atual={under25!.atual}
-              under25Maxima={under25!.maxima}
-              under35Atual={under35!.atual}
-              under35Maxima={under35!.maxima}
-            />
+              {/* Sessão OVER GOLS */}
+              <TableOverGols
+                over05Atual={over05!.atual}
+                over05Maxima={over05!.maxima}
+                over15Atual={over15!.atual}
+                over15Maxima={over15!.maxima}
+                over25Atual={over25!.atual}
+                over25Maxima={over25!.maxima}
+                over35Atual={over35!.atual}
+                over35Maxima={over35!.maxima}
+              />
 
-            {/* Sessão GOLS Exatos */}
-            <TableGolsExato 
-              gols0Atual={gols0!.atual}
-              gols0Maxima={gols0!.maxima}
-              gols1Atual={gols1!.atual}
-              gols1Maxima={gols1!.maxima}
-              gols2Atual={gols2!.atual}
-              gols2Maxima={gols2!.maxima}
-              gols3Atual={gols3!.atual}
-              gols3Maxima={gols3!.maxima}
-              gols4Atual={gols4!.atual}
-              gols4Maxima={gols4!.maxima}
-              gols5Atual={gols5!.atual}
-              gols5Maxima={gols5!.maxima}
-            />
+              {/* Sessão UNDER GOLS */}
+              <TableUnderGols
+                under05Atual={under05!.atual}
+                under05Maxima={under05!.maxima}
+                under15Atual={under15!.atual}
+                under15Maxima={under15!.maxima}
+                under25Atual={under25!.atual}
+                under25Maxima={under25!.maxima}
+                under35Atual={under35!.atual}
+                under35Maxima={under35!.maxima}
+              />
 
-            {/* Sessão AMBAS MARCAM */}
-            <TableAmbasMarcam 
-              ambasMarcamAtual={ambasMarcam!.atual}
-              ambasMarcamMaxima={ambasMarcam!.maxima}
-              ambasNaoMarcamAtual={ambasNaoMarcam!.atual}
-              ambasNaoMarcamMaxima={ambasNaoMarcam!.maxima}
-            />
+              {/* Sessão GOLS Exatos */}
+              <TableGolsExato
+                gols0Atual={gols0!.atual}
+                gols0Maxima={gols0!.maxima}
+                gols1Atual={gols1!.atual}
+                gols1Maxima={gols1!.maxima}
+                gols2Atual={gols2!.atual}
+                gols2Maxima={gols2!.maxima}
+                gols3Atual={gols3!.atual}
+                gols3Maxima={gols3!.maxima}
+                gols4Atual={gols4!.atual}
+                gols4Maxima={gols4!.maxima}
+                gols5Atual={gols5!.atual}
+                gols5Maxima={gols5!.maxima}
+              />
 
-            {/* Sessão Resultado Intervalo / HT */}
-            <TableResultadoHT
-              casaAtual={casaHT!.atual}
-              casaMaxima={casaHT!.maxima}
-              empateAtual={empateHT!.atual}
-              empateMaxima={empateHT!.maxima}
-              foraAtual={visitanteHT!.atual}
-              foraMaxima={visitanteHT!.maxima}
-            />
+              {/* Sessão AMBAS MARCAM */}
+              <TableAmbasMarcam
+                ambasMarcamAtual={ambasMarcam!.atual}
+                ambasMarcamMaxima={ambasMarcam!.maxima}
+                ambasNaoMarcamAtual={ambasNaoMarcam!.atual}
+                ambasNaoMarcamMaxima={ambasNaoMarcam!.maxima}
+              />
 
-            {/* Sessão Resultado Final / FT */}
-            <TableResultadoFT 
-              casaAtual={casaFT!.atual}
-              casaMaxima={casaFT!.maxima}
-              empateAtual={empateFT!.atual}
-              empateMaxima={empateFT!.maxima}
-              foraAtual={visitanteFT!.atual}
-              foraMaxima={visitanteFT!.maxima}
-            />
+              {/* Sessão Resultado Intervalo / HT */}
+              <TableResultadoHT
+                casaAtual={casaHT!.atual}
+                casaMaxima={casaHT!.maxima}
+                empateAtual={empateHT!.atual}
+                empateMaxima={empateHT!.maxima}
+                foraAtual={visitanteHT!.atual}
+                foraMaxima={visitanteHT!.maxima}
+              />
 
-            {/* Sessão Placar Exato FT */}
-            <TableResultadoExatoFT
-              score1x0Atual={score1x0FT!.atual}
-              score1x0Maxima={score1x0FT!.maxima}
-              score0x0Atual={score0x0FT!.atual}
-              score0x0Maxima={score0x0FT!.maxima}
-              score0x1Atual={score0x1FT!.atual}
-              score0x1Maxima={score0x1FT!.maxima}
-              score2x0Atual={score2x0FT!.atual}
-              score2x0Maxima={score2x0FT!.maxima}
-              score1x1Atual={score1x1FT!.atual}
-              score1x1Maxima={score1x1FT!.maxima}
-              score0x2Atual={score0x2FT!.atual}
-              score0x2Maxima={score0x2FT!.maxima}
-              score2x1Atual={score2x1FT!.atual}
-              score2x1Maxima={score2x1FT!.maxima}
-              score2x2Atual={score2x2FT!.atual}
-              score2x2Maxima={score2x2FT!.maxima}
-              score1x2Atual={score1x2FT!.atual}
-              score1x2Maxima={score1x2FT!.maxima}
-              score3x0Atual={score3x0FT!.atual}
-              score3x0Maxima={score3x0FT!.maxima}
-              score3x3Atual={score3x3FT!.atual}
-              score3x3Maxima={score3x3FT!.maxima}
-              score0x3Atual={score0x3FT!.atual}
-              score0x3Maxima={score0x3FT!.maxima}
-              score3x1Atual={score3x1FT!.atual}
-              score3x1Maxima={score3x1FT!.maxima}
-              score4x4Atual={score4x4FT!.atual}
-              score4x4Maxima={score4x4FT!.maxima}
-              score1x3Atual={score1x3FT!.atual}
-              score1x3Maxima={score1x3FT!.maxima}
-              score3x2Atual={score3x2FT!.atual}
-              score3x2Maxima={score3x2FT!.maxima}
-              score2x3Atual={score2x3FT!.atual}
-              score2x3Maxima={score2x3FT!.maxima}
-              score4x0Atual={score4x0FT!.atual}
-              score4x0Maxima={score4x0FT!.maxima}
-              score0x4Atual={score0x4FT!.atual}
-              score0x4Maxima={score0x4FT!.maxima}
-            />
+              {/* Sessão Resultado Final / FT */}
+              <TableResultadoFT
+                casaAtual={casaFT!.atual}
+                casaMaxima={casaFT!.maxima}
+                empateAtual={empateFT!.atual}
+                empateMaxima={empateFT!.maxima}
+                foraAtual={visitanteFT!.atual}
+                foraMaxima={visitanteFT!.maxima}
+              />
 
-            {/* Sessão Placar Exato HT */}
-            <TablePlcarExatoHT
-              score1x0Atual={score1x0HT!.atual}
-              score1x0Maxima={score1x0HT!.maxima}
-              score0x0Atual={score0x0HT!.atual}
-              score0x0Maxima={score0x0HT!.maxima}
-              score0x1Atual={score0x1HT!.atual}
-              score0x1Maxima={score0x1HT!.maxima}
-              score2x0Atual={score2x0HT!.atual}
-              score2x0Maxima={score2x0HT!.maxima}
-              score1x1Atual={score1x1HT!.atual}
-              score1x1Maxima={score1x1HT!.maxima}
-              score0x2Atual={score0x2HT!.atual}
-              score0x2Maxima={score0x2HT!.maxima}
-            />
+              {/* Sessão Placar Exato FT */}
+              <TableResultadoExatoFT
+                score1x0Atual={score1x0FT!.atual}
+                score1x0Maxima={score1x0FT!.maxima}
+                score0x0Atual={score0x0FT!.atual}
+                score0x0Maxima={score0x0FT!.maxima}
+                score0x1Atual={score0x1FT!.atual}
+                score0x1Maxima={score0x1FT!.maxima}
+                score2x0Atual={score2x0FT!.atual}
+                score2x0Maxima={score2x0FT!.maxima}
+                score1x1Atual={score1x1FT!.atual}
+                score1x1Maxima={score1x1FT!.maxima}
+                score0x2Atual={score0x2FT!.atual}
+                score0x2Maxima={score0x2FT!.maxima}
+                score2x1Atual={score2x1FT!.atual}
+                score2x1Maxima={score2x1FT!.maxima}
+                score2x2Atual={score2x2FT!.atual}
+                score2x2Maxima={score2x2FT!.maxima}
+                score1x2Atual={score1x2FT!.atual}
+                score1x2Maxima={score1x2FT!.maxima}
+                score3x0Atual={score3x0FT!.atual}
+                score3x0Maxima={score3x0FT!.maxima}
+                score3x3Atual={score3x3FT!.atual}
+                score3x3Maxima={score3x3FT!.maxima}
+                score0x3Atual={score0x3FT!.atual}
+                score0x3Maxima={score0x3FT!.maxima}
+                score3x1Atual={score3x1FT!.atual}
+                score3x1Maxima={score3x1FT!.maxima}
+                score4x4Atual={score4x4FT!.atual}
+                score4x4Maxima={score4x4FT!.maxima}
+                score1x3Atual={score1x3FT!.atual}
+                score1x3Maxima={score1x3FT!.maxima}
+                score3x2Atual={score3x2FT!.atual}
+                score3x2Maxima={score3x2FT!.maxima}
+                score2x3Atual={score2x3FT!.atual}
+                score2x3Maxima={score2x3FT!.maxima}
+                score4x0Atual={score4x0FT!.atual}
+                score4x0Maxima={score4x0FT!.maxima}
+                score0x4Atual={score0x4FT!.atual}
+                score0x4Maxima={score0x4FT!.maxima}
+              />
 
-            {/* Sessão Primeiro a Marcar */}
-            <TablePrimeiroAMarcar
-              semMarcadorAtual = {semMarcador!.atual}
-              semMarcadorMaxima = {semMarcador!.maxima}
-              centroAvanteCasaAtual = {centroAvanteCasa!.atual}
-              centroAvanteCasaMaxima = {centroAvanteCasa!.maxima}
-              centroAvanteVisitanteAtual = {centroAvanteVisitante!.atual}
-              centroAvanteVisitanteMaxima = {centroAvanteVisitante!.maxima}
-              pontaDireitaCasaAtual = {pontaDireitaCasa!.atual}
-              pontaDireitaCasaMaxima = {pontaDireitaCasa!.maxima}
-              pontaDireitaVisitanteAtual = {pontaDireitaVisitante!.atual}
-              pontaDireitaVisitanteMaxima = {pontaDireitaVisitante!.maxima}
-              pontaEsquerdaCasaAtual = {pontaEsquerdaCasa!.atual}
-              pontaEsquerdaCasaMaxima = {pontaEsquerdaCasa!.maxima}
-              pontaEsquerdaVisitanteAtual = {pontaEsquerdaVisitante!.atual}
-              pontaEsquerdaVisitanteMaxima = {pontaEsquerdaVisitante!.maxima}
-              meiaAtacanteCasaAtual = {meiaAtacanteCasa!.atual}
-              meiaAtacanteCasaMaxima = {meiaAtacanteCasa!.maxima}
-              meiaAtacanteVisitanteAtual = {meiaAtacanteVisitante!.atual}
-              meiaAtacanteVisitanteMaxima = {meiaAtacanteVisitante!.maxima}
-              outroJogadorCasaAtual = {outroJogadorCasa!.atual}
-              outroJogadorCasaMaxima = {outroJogadorCasa!.maxima}
-              outroJogadorVisitanteAtual = {outroJogadorVisitante!.atual}
-              outroJogadorVisitanteMaxima = {outroJogadorVisitante!.maxima}
-            />
+              {/* Sessão Placar Exato HT */}
+              <TablePlcarExatoHT
+                score1x0Atual={score1x0HT!.atual}
+                score1x0Maxima={score1x0HT!.maxima}
+                score0x0Atual={score0x0HT!.atual}
+                score0x0Maxima={score0x0HT!.maxima}
+                score0x1Atual={score0x1HT!.atual}
+                score0x1Maxima={score0x1HT!.maxima}
+                score2x0Atual={score2x0HT!.atual}
+                score2x0Maxima={score2x0HT!.maxima}
+                score1x1Atual={score1x1HT!.atual}
+                score1x1Maxima={score1x1HT!.maxima}
+                score0x2Atual={score0x2HT!.atual}
+                score0x2Maxima={score0x2HT!.maxima}
+              />
 
-            {/* Sessão Primeiro Time a Marcar */}
-            <TablePrimerioTimeAMarcar
-              casaAtual={primeiroTimeCasa!.atual}
-              casaMaxima={primeiroTimeCasa!.maxima}
-              empateAtual={primeiroTimeSemMarcador!.atual}
-              empateMaxima={primeiroTimeSemMarcador!.maxima}
-              foraAtual={primeiroTimeVisitante!.atual}
-              foraMaxima={primeiroTimeVisitante!.maxima}
-            />
+              {/* Sessão Primeiro a Marcar */}
+              <TablePrimeiroAMarcar
+                semMarcadorAtual={semMarcador!.atual}
+                semMarcadorMaxima={semMarcador!.maxima}
+                centroAvanteCasaAtual={centroAvanteCasa!.atual}
+                centroAvanteCasaMaxima={centroAvanteCasa!.maxima}
+                centroAvanteVisitanteAtual={centroAvanteVisitante!.atual}
+                centroAvanteVisitanteMaxima={centroAvanteVisitante!.maxima}
+                pontaDireitaCasaAtual={pontaDireitaCasa!.atual}
+                pontaDireitaCasaMaxima={pontaDireitaCasa!.maxima}
+                pontaDireitaVisitanteAtual={pontaDireitaVisitante!.atual}
+                pontaDireitaVisitanteMaxima={pontaDireitaVisitante!.maxima}
+                pontaEsquerdaCasaAtual={pontaEsquerdaCasa!.atual}
+                pontaEsquerdaCasaMaxima={pontaEsquerdaCasa!.maxima}
+                pontaEsquerdaVisitanteAtual={pontaEsquerdaVisitante!.atual}
+                pontaEsquerdaVisitanteMaxima={pontaEsquerdaVisitante!.maxima}
+                meiaAtacanteCasaAtual={meiaAtacanteCasa!.atual}
+                meiaAtacanteCasaMaxima={meiaAtacanteCasa!.maxima}
+                meiaAtacanteVisitanteAtual={meiaAtacanteVisitante!.atual}
+                meiaAtacanteVisitanteMaxima={meiaAtacanteVisitante!.maxima}
+                outroJogadorCasaAtual={outroJogadorCasa!.atual}
+                outroJogadorCasaMaxima={outroJogadorCasa!.maxima}
+                outroJogadorVisitanteAtual={outroJogadorVisitante!.atual}
+                outroJogadorVisitanteMaxima={outroJogadorVisitante!.maxima}
+              />
 
-            {/* Sessão Ultimo Time a Marcar */}
-            <TableUltimoTimeAMarcar
-              casaAtual={ultimoTimeCasa!.atual}
-              casaMaxima={ultimoTimeCasa!.maxima}
-              empateAtual={ultimoTimeVisitante!.atual}
-              empateMaxima={ultimoTimeVisitante!.maxima}
-              foraAtual={ultimoTimeSemMarcador!.atual}
-              foraMaxima={ultimoTimeSemMarcador!.maxima}
-            />
+              {/* Sessão Primeiro Time a Marcar */}
+              <TablePrimerioTimeAMarcar
+                casaAtual={primeiroTimeCasa!.atual}
+                casaMaxima={primeiroTimeCasa!.maxima}
+                empateAtual={primeiroTimeSemMarcador!.atual}
+                empateMaxima={primeiroTimeSemMarcador!.maxima}
+                foraAtual={primeiroTimeVisitante!.atual}
+                foraMaxima={primeiroTimeVisitante!.maxima}
+              />
 
-          </GridColumn>
-          
-          {/* Fim Segunda Coluna */}
-        </GridRow>
-      </Grid>
+              {/* Sessão Ultimo Time a Marcar */}
+              <TableUltimoTimeAMarcar
+                casaAtual={ultimoTimeCasa!.atual}
+                casaMaxima={ultimoTimeCasa!.maxima}
+                empateAtual={ultimoTimeVisitante!.atual}
+                empateMaxima={ultimoTimeVisitante!.maxima}
+                foraAtual={ultimoTimeSemMarcador!.atual}
+                foraMaxima={ultimoTimeSemMarcador!.maxima}
+              />
+            </GridColumn>
+
+            {/* Fim Segunda Coluna */}
+          </GridRow>
+        </Grid>
       )}
     </>
   );

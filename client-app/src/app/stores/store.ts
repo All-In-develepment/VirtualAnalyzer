@@ -8,6 +8,9 @@ import CommentStore from "./commentStore";
 import FutebolVirtualStore from "./futebolVirtualStore";
 import MaximasStore from "./maximasStore";
 
+import LastGamesStore from "./lastGamesStore";
+import OddsStore from "./oddsStore";
+
 interface Store {
   activityStore: ActivityStore;
   commonStore: CommonStore;
@@ -17,6 +20,8 @@ interface Store {
   commentStore: CommentStore;
   FutebolVirtualStore: FutebolVirtualStore;
   MaximasStore: MaximasStore;
+  LastGames: LastGamesStore;
+  Odds: OddsStore;
 }
 
 export const store: Store = {
@@ -28,6 +33,8 @@ export const store: Store = {
   commentStore: new CommentStore(),
   FutebolVirtualStore: new FutebolVirtualStore(),
   MaximasStore: new MaximasStore(),
+  LastGames: new LastGamesStore(),
+  Odds: new OddsStore(),
 };
 
 export const StoreContext = createContext(store);

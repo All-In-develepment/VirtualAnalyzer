@@ -8,12 +8,19 @@ interface Props {
   imparMaxima: number;
 }
 
-export default observer(function TableImparPar({ parAtual, parMaxima, imparAtual, imparMaxima }: Props) {
+export default observer(function TableImparPar({
+  parAtual,
+  parMaxima,
+  imparAtual,
+  imparMaxima,
+}: Props) {
   return (
     <Table textAlign={"center"}>
       <TableHeader>
         <Table.Row>
-          <Table.Cell className="table_detail_header" colSpan='2'>GOLS IMPAR / PAR</Table.Cell>
+          <Table.Cell className="table_detail_header" colSpan="2">
+            GOLS IMPAR / PAR
+          </Table.Cell>
         </Table.Row>
       </TableHeader>
 
@@ -33,7 +40,9 @@ export default observer(function TableImparPar({ parAtual, parMaxima, imparAtual
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell className="table_detail_header">MÁXIMA: {imparMaxima}</Table.Cell>
+                  <Table.Cell className="table_detail_header">
+                    MÁXIMA: {imparMaxima}
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -52,7 +61,9 @@ export default observer(function TableImparPar({ parAtual, parMaxima, imparAtual
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell className="table_detail_header">MÁXIMA: {parMaxima}</Table.Cell>
+                  <Table.Cell className="table_detail_header">
+                    MÁXIMA: {parMaxima}
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -60,5 +71,5 @@ export default observer(function TableImparPar({ parAtual, parMaxima, imparAtual
         </Table.Row>
       </Table.Body>
     </Table>
-  )
+  );
 });

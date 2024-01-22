@@ -9,6 +9,8 @@ import { store } from "../stores/store";
 import { Maximas } from "../models/maximas";
 import { FutebolVirtualGames } from "../models/futebolVirtualGames";
 import { GameTimes } from "../models/gameTimes";
+import { ILastGames } from "../models/lastGames";
+import { IOdd } from "../models/odds";
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
@@ -145,12 +147,26 @@ const FutebolVirtualGame = {
     requests.get<FutebolVirtualGames>(`/futebolVirtual/${id}`),
 };
 
+const LastGames = {
+  list: async (gameDate: string) =>
+    await axios
+      .get<ILastGames[]>(`/futebolvirtual/lastGames/${gameDate}`)
+      .then(responseBody),
+};
+
+const Odds = {
+  list: async (leagueId: string) =>
+    await axios.get<IOdd>(`/futebolvirtual/odd/${leagueId}`).then(responseBody),
+};
+
 const agent = {
   Activities,
   Account,
   Profiles,
   Maxima,
   FutebolVirtualGame,
+  LastGames,
+  Odds,
 };
 
 export default agent;

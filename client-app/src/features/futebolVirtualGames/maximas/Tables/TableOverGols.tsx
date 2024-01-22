@@ -12,12 +12,23 @@ interface Props {
   over35Maxima: number;
 }
 
-export default observer(function TableOverGols({ over05Atual, over05Maxima, over15Atual, over15Maxima, over25Atual, over25Maxima, over35Atual, over35Maxima }: Props) {
+export default observer(function TableOverGols({
+  over05Atual,
+  over05Maxima,
+  over15Atual,
+  over15Maxima,
+  over25Atual,
+  over25Maxima,
+  over35Atual,
+  over35Maxima,
+}: Props) {
   return (
     <Table textAlign={"center"}>
       <TableHeader>
         <Table.Row>
-          <Table.Cell colSpan='4' className="table_detail_header">OVER GOLS</Table.Cell>
+          <Table.Cell colSpan="4" className="table_detail_header">
+            OVER GOLS
+          </Table.Cell>
         </Table.Row>
       </TableHeader>
       <Table.Body>
@@ -36,7 +47,9 @@ export default observer(function TableOverGols({ over05Atual, over05Maxima, over
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell className="table_detail_header">MÁXIMA: {over05Maxima}</Table.Cell>
+                  <Table.Cell className="table_detail_header">
+                    MÁXIMA: {over05Maxima}
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -55,7 +68,9 @@ export default observer(function TableOverGols({ over05Atual, over05Maxima, over
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell className="table_detail_header">MÁXIMA: {over15Maxima}</Table.Cell>
+                  <Table.Cell className="table_detail_header">
+                    MÁXIMA: {over15Maxima}
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -74,7 +89,9 @@ export default observer(function TableOverGols({ over05Atual, over05Maxima, over
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell className="table_detail_header">MÁXIMA: {over25Maxima}</Table.Cell>
+                  <Table.Cell className="table_detail_header">
+                    MÁXIMA: {over25Maxima}
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -93,7 +110,9 @@ export default observer(function TableOverGols({ over05Atual, over05Maxima, over
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell className="table_detail_header">MÁXIMA: {over35Maxima}</Table.Cell>
+                  <Table.Cell className="table_detail_header">
+                    MÁXIMA: {over35Maxima}
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -101,5 +120,5 @@ export default observer(function TableOverGols({ over05Atual, over05Maxima, over
         </Table.Row>
       </Table.Body>
     </Table>
-  )
+  );
 });
