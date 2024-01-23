@@ -31,7 +31,8 @@ namespace API.Extensions
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()
-                        .WithOrigins("http://localhost:3000");
+                        .WithOrigins("http://localhost:3000", "http://191.252.5.226:3000/");
+                        // .WithOrigins("http://localhost:3000");
                 });
             });
             services.AddMediatR(typeof(List.Handler));

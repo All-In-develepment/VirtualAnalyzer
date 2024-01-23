@@ -13,21 +13,21 @@ export default observer(function HomePage() {
             <Container text>
                 <Header as='h1' inverted>
                     <Image size='massive' src='/assets/logo.png' alt='logo' style={{ marginBottom: 12 }} />
-                    Reactivities
+                    Virtual-Analyzer
                 </Header>
                 {userStore.isLoggedIn ? (
                     <>
                         <Header as='h2' inverted content={`Welcome back ${userStore.user?.displayName}`} />
-                        <Button as={Link} to='/activities' size='huge' inverted>
-                            Go to activities!
+                        <Button as={Link} to='/maximas' size='huge' inverted>
+                            Começar a Analizar
                         </Button> 
                     </>
                 ) : (
                     <>
-                        <Button onClick={() => modalStore.openModal(<LoginForm />)} size='huge' inverted>
+                        <Button onClick={() => modalStore.openModal(<LoginForm />, 'mini')} size='huge' inverted>
                             Login!
                         </Button>
-                        <Button onClick={() => modalStore.openModal(<RegsiterForm />)} size='huge' inverted>
+                        <Button onClick={() => modalStore.openModal(<RegsiterForm />, 'mini')} size='huge' inverted>
                             Register
                         </Button>
                     </>

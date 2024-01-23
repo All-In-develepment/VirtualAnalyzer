@@ -567,8 +567,8 @@ export default observer(function MaximasDashboard() {
   console.log(golsPar?.atual);
 
   const renderOddsComponent = (leagueId: number) => {
-    console.log("a liga: ", leagueId);
-    return <Odds leagueId={String(leagueId)} />;
+    // console.log("a liga: ", leagueId);
+    return <Odds leagueId={String(leagueId)}/>;
   };
 
   return (
@@ -662,17 +662,29 @@ export default observer(function MaximasDashboard() {
                   {dataTournament?.matches.map((match) => (
                     <Table.Row key={match.data.id}>
                       <Table.Cell>
-                        <Button
+												{/* Botaão para abrir o composnete Odds como modal em fullscreen */}
+												<Button
+													onClick={() =>
+														modalStore.openModal(
+															renderOddsComponent(match.data.id), 'large'
+														)
+													}
+													size="medium"
+													inverted
+												>
+													ODDS
+												</Button>
+                        {/* <Button
                           onClick={() =>
                             modalStore.openModal(
-                              <Odds leagueId={String(match.data.id)} />
+                              <Odds leagueId={String(match.data.id)} />, 'fullscreen'
                             )
                           }
-                          size="huge"
+                          size="medium"
                           inverted
                         >
                           ODDS
-                        </Button>
+                        </Button> */}
                       </Table.Cell>
                       <Table.Cell>{match.data.date.split("T")[1]}</Table.Cell>
                       <Table.Cell>
