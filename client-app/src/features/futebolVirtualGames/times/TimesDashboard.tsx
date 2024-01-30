@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../app/stores/store";
 import { useEffect, useState } from "react";
-import {
+/*import {
   Grid,
   GridColumn,
   GridRow,
@@ -11,8 +11,26 @@ import {
   TableCell,
   TableHeader,
   TableHeaderCell,
-} from "semantic-ui-react";
+} from "semantic-ui-react";*/
 import { GameTimes } from "../../../app/models/gameTimes";
+
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+
+import {Grid} from '@mui/material';
+//import { Grid, Item } from "semantic-ui-react";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import useTheme from "@mui/material/styles/useTheme";
+import { styled } from '@mui/material/styles';
+import GridRow from "semantic-ui-react/dist/commonjs/collections/Grid/GridRow";
+import Label from "semantic-ui-react/dist/commonjs/elements/Label";
+
 
 export default observer(function TimesDashboard() {
   var keyLine = 0;
@@ -50,9 +68,17 @@ export default observer(function TimesDashboard() {
     [selectedTournament, selectedMarket, selectedHours]
   );
 
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+
   return (
     <>
-      <Grid>
+      {/*<Grid className="gridLigas">
         <GridRow columns={4} textAlign="center">
           <GridColumn onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa" >
             <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" />
@@ -67,9 +93,28 @@ export default observer(function TimesDashboard() {
             <img src="/assets/banners/superleague.jpg" alt="Sul-Americana" className="leagues_buton" />
           </GridColumn>
         </GridRow>
+  </Grid>*/}
+
+      <Grid container spacing={1} className="gridLigas">
+        <Grid md={3} onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa">
+           <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" /> 
+        </Grid>
+
+        <Grid md={3} onClick={() => setSelectedTournament("20120650")} className="bannerCopaDoMundo">
+           <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
+        </Grid>
+
+        <Grid md={3} onClick={() => setSelectedTournament("20120653")} className="bannerPremierShip">
+          <img src="/assets/banners/premiership.jpg" alt="Premier League" className="leagues_buton" />
+        </Grid>
+
+        <Grid md={3} onClick={() => setSelectedTournament("20849528")} className="bannerSuperLeague">
+          <img src="/assets/banners/superleague.jpg" alt="Sul-Americana" className="leagues_buton" />
+        </Grid>
       </Grid>
 
-      <Grid>
+
+      <Grid className="selectMercado">
         <GridRow>
           <Label htmlFor="timeChoese">Escolha uma opção:</Label>
           <select
@@ -104,49 +149,65 @@ export default observer(function TimesDashboard() {
             <option value="UNDER35">UNDER 3,5</option>
           </select>
         </GridRow>
-      </Grid>
+    </Grid>
 
-      {games && FutebolVirtualStore.loadingInitial === false ? (
-        <Table>
-          <TableHeader>
-            <TableHeaderCell></TableHeaderCell>
-            {games.minutes.map((minute) => {
-              return (
-                <TableHeaderCell key={keyLine++}>
-                  {minute.number}
-                </TableHeaderCell>
-              );
-            })}
-          </TableHeader>
-          {games.lines.map((line) => {
-            return (
-              <TableBody>
-                <TableHeaderCell key={keyLine++}>{line.hora}</TableHeaderCell>
-                {line.cells.map((cell) => {
+
+      <Paper sx={{width: '100%', overflow: 'hidden'}}>
+        <TableContainer sx={{ maxHeight: 700}}>
+          
+
+            {games && FutebolVirtualStore.loadingInitial === false ? (
+            <Table stickyHeader aria-label="sticky tabel" className="tableHorarios">
+              <TableHead>
+                <TableCell></TableCell>
+                {games.minutes.map((minute) => {
                   return (
-                    <TableCell
-                      key={keyCell++}
-                      className={
-                        cell.isGreen === true
-                          ? "positive"
-                          : cell.tooltip !== null
-                          ? "negative"
-                          : "gray"
-                      }
-                      textAlign="center"
-                      size="large"
-                    >
-                      {cell.result}
+                    <TableCell className="table_header cellHorario" key={keyLine++}>
+                      {minute.number} min 
                     </TableCell>
                   );
                 })}
-              </TableBody>
-            );
-          })}
-        </Table>
-      ) : (
-        <></>
-      )}
+              </TableHead>
+              {games.lines.map((line) => {
+                return (
+                  <TableBody>
+                    <TableCell className="coluna_esquerda" key={keyLine++}>{line.hora}</TableCell>
+                    {line.cells.map((cell) => {
+                      return (
+                        <TableCell                    
+                          key={keyCell++}
+                          className={
+                            
+                            cell.isGreen === true
+                              ? "green cellHorario"
+                              : cell.tooltip !== null
+                              ? "red cellHorario"
+                              : "gray cellHorario"
+                          }
+                          //textAlign="center"
+                          //size="large"
+                        >
+                          {cell.result}
+                        </TableCell>
+                      );
+                    })}
+                  </TableBody>
+                );
+              })}
+            </Table>
+          ) : (
+            <></>
+          )}
+
+          
+
+        </TableContainer>
+
+      </Paper>
+
+      
+
+      
     </>
   );
 });
