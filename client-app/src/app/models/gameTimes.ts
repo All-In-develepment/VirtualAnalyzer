@@ -31,3 +31,16 @@ export interface Minute {
     countGreen: number
     percents: number
 }
+
+export type TournamentNames = {
+    "Euro Cup": "20700663";
+    "Copa do Mundo": "20120650";
+    "Premier League": "20120653";
+    "Sul-Americana": "20849528";
+};
+
+export type LoadGamesResult = {
+name: keyof TournamentNames;
+result?: GameTimes;
+error?: any;
+};

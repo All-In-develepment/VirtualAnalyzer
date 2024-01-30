@@ -10,11 +10,11 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 
-import {Grid} from '@mui/material';
+import {Grid, TableRow} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import GridRow from "semantic-ui-react/dist/commonjs/collections/Grid/GridRow";
-import Label from "semantic-ui-react/dist/commonjs/elements/Label";
-import { GridColumn } from "semantic-ui-react";
+import { Grid as GridSemantic } from "semantic-ui-react";
+import { GridColumn, Tab } from "semantic-ui-react";
 
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -67,12 +67,6 @@ export default observer(function TimesDashboard() {
     color: theme.palette.text.secondary,
   }));
 
-  // Teste --------------------
-  const handleChange = (event: SelectChangeEvent) => {
-    setSelectedHours(event.target.value as string);
-  };
-  // Fim Teste ----------------
-
   return (
     <>
       <Grid container spacing={1} className="gridLigas">
@@ -94,8 +88,8 @@ export default observer(function TimesDashboard() {
       </Grid>
 
 
-      <Grid>
-        <GridRow>
+      <GridSemantic>
+        <GridRow columns={2}>
           <GridColumn md={8} sm={8}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
@@ -145,7 +139,8 @@ export default observer(function TimesDashboard() {
             </Box>
           </GridColumn>
         </GridRow>
-      </Grid>
+      </GridSemantic>
+      <br />
 
 
       <Paper sx={{width: '100%', overflow: 'hidden'}}>
@@ -155,14 +150,16 @@ export default observer(function TimesDashboard() {
             {games && FutebolVirtualStore.loadingInitial === false ? (
             <Table stickyHeader aria-label="sticky tabel" className="tableHorarios">
               <TableHead>
-                <TableCell></TableCell>
-                {games.minutes.map((minute) => {
-                  return (
-                    <TableCell className="table_header cellHorario" key={keyLine++} align="center">
-                      {minute.number} min 
-                    </TableCell>
-                  );
-                })}
+                <TableRow>
+                  <TableCell></TableCell>
+                  {games.minutes.map((minute) => {
+                    return (
+                      <TableCell className="table_header cellHorario" key={keyLine++} align="center">
+                        {minute.number} min 
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
               </TableHead>
               {games.lines.map((line) => {
                 return (

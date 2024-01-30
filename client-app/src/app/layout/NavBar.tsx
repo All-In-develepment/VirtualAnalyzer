@@ -74,6 +74,11 @@ export default observer(function NavBar() {
                 </NavLink>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
+                <NavLink to={"/game-multtimes"} >
+                  <Typography textAlign="center">Multi Horarios</Typography>
+                </NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
                 <NavLink to="/maximas" >
                   <Typography textAlign="center">Máximas</Typography>
                 </NavLink>
@@ -90,6 +95,11 @@ export default observer(function NavBar() {
             <MenuItem onClick={handleCloseNavMenu}>
               <NavLink to={"/game-times"} >
                 <Typography textAlign="center" className="menuName">Horarios</Typography>
+              </NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleCloseNavMenu}>
+              <NavLink to={"/game-multtimes"} >
+                <Typography textAlign="center" className="menuName">Multi Horarios</Typography>
               </NavLink>
             </MenuItem>
             <MenuItem onClick={handleCloseNavMenu}>
@@ -135,32 +145,6 @@ export default observer(function NavBar() {
             </Menu>
           </Box>
         </Toolbar>
-        {/* <Menu>
-          <Menu.Item as={NavLink} to="/" header>
-          </Menu.Item>
-          <Menu.Item as={NavLink} to="/game-times" name="Horarios" />
-          <Menu.Item as={NavLink} to="/maximas" name="Máximas" />
-          <Menu.Item as={NavLink} to="/last-games" name="Últimos Jogos" />
-          <Menu.Item position="right">
-            <Image
-              avatar
-              spaced="right"
-              src={user?.image || "/assets/user.png"}
-            />
-            <Dropdown pointing="top left" text={user?.displayName}>
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  as={Link}
-                  to={/profiles/${user?.username}}
-                  text="My Profile"
-                  icon="user"
-                />
-                <Dropdown.Item onClick={logout} text="Logout" icon="power" />
-              </Dropdown.Menu>
-            </Dropdown>
-          </Menu.Item>
-          <Menu.Item>{user?.ExpireDate}</Menu.Item>
-        </Menu> */}
       </Container>  
     </AppBar>
   );

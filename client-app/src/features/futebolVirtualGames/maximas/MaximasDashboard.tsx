@@ -7,6 +7,7 @@ import {
   GridColumn,
   GridRow,
   Label,
+  Grid as GridSemantic,
   // Table,
   // TableCell,
 } from "semantic-ui-react";
@@ -608,7 +609,7 @@ export default observer(function MaximasDashboard() {
 
       {/* Gráfico */}
       {dataTournament && (
-        <Grid textAlign="center" columns={1} >
+        <GridSemantic textAlign="center" columns={1} >
           <GridColumn>
             <MainLineChart
               over15={dataTournament.chart.over15}
@@ -625,20 +626,20 @@ export default observer(function MaximasDashboard() {
               visitanteOuCasa={dataTournament.chart.visitanteOuCasa}
               empateOuVisitante={dataTournament.chart.empateOuVisitante}
               height={ larguraDaTela > 1000 ? 400 : 300 }
-              width={ larguraDaTela * 0.9 }
+              width={ larguraDaTela > 980 ? larguraDaTela * 0.58 : larguraDaTela * 0.9 }
               marginLeft={ larguraDaTela > 1000 ? 20 : 0}
               marginRight={ larguraDaTela > 1000 ? 20 : 0}
             />
           </GridColumn>
-        </Grid>
+        </GridSemantic>
       )}
 
       {golsPar && (
-        <Grid>
+        <GridSemantic>
           <GridRow columns={2} textAlign="center">
 
             {/* Primeira Coluna */}
-            <GridColumn>
+            <GridColumn >
               {/* Sessão PAR / IMPAR */}
               <TableImparPar
                 parAtual={golsPar!.atual}
@@ -899,7 +900,7 @@ export default observer(function MaximasDashboard() {
 
             {/* Fim Segunda Coluna */}
           </GridRow>
-        </Grid>
+        </GridSemantic>
       )}
     </>
   );
