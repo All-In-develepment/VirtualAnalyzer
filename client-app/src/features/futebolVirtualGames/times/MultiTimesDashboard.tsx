@@ -11,6 +11,7 @@ import {
   TableCell,
   TableHeader,
   TableHeaderCell,
+  TableRow,
 } from "semantic-ui-react";
 import {
   GameTimes,
@@ -120,51 +121,6 @@ export default observer(function MultiTimesDashboard() {
 
   return (
     <>
-      {/* <Grid>
-        <GridRow columns={4} textAlign="center">
-          <GridColumn
-            onClick={() => setSelectedTournament("20700663")}
-            className="bannerEuroCopa"
-          >
-            <img
-              src="/assets/banners/euro_cup.jpg"
-              alt="Euro Cup"
-              className="leagues_buton"
-            />
-          </GridColumn>
-          <GridColumn
-            onClick={() => setSelectedTournament("20120650")}
-            className="bannerCopaDoMundo"
-          >
-            <img
-              src="/assets/banners/copa_do_mundo.jpg"
-              alt="Copa do Mundo"
-              className="leagues_buton"
-            />
-          </GridColumn>
-          <GridColumn
-            onClick={() => setSelectedTournament("20120653")}
-            className="bannerPremierShip"
-          >
-            <img
-              src="/assets/banners/premiership.jpg"
-              alt="Premier League"
-              className="leagues_buton"
-            />
-          </GridColumn>
-          <GridColumn
-            onClick={() => setSelectedTournament("20849528")}
-            className="bannerSuperLeague"
-          >
-            <img
-              src="/assets/banners/superleague.jpg"
-              alt="Sul-Americana"
-              className="leagues_buton"
-            />
-          </GridColumn>
-        </GridRow>
-      </Grid> */}
-
       <Grid>
         <GridRow>
           <Label htmlFor="timeChoese">Escolha uma opção:</Label>
@@ -202,46 +158,55 @@ export default observer(function MultiTimesDashboard() {
         </GridRow>
       </Grid>
 
-      {Object.entries(games).map(([tournament, gameData]) => (
-        <>
-          <h2>{tournament}</h2>
-          {gameData && FutebolVirtualStore.loadingInitial === false ? (
-            <Table key={tournament}>
-              <TableHeader>
-                <TableHeaderCell></TableHeaderCell>
-                {gameData.minutes.map((minute) => (
-                  <TableHeaderCell key={keyLine++}>
-                    {minute.number}
-                  </TableHeaderCell>
-                ))}
-              </TableHeader>
-              {gameData.lines.map((line) => (
-                <TableBody key={keyLine++}>
-                  <TableHeaderCell>{line.hora}</TableHeaderCell>
-                  {line.cells.map((cell) => (
-                    <TableCell
-                      key={keyCell++}
-                      className={
-                        cell.isGreen === true
-                          ? "positive"
-                          : cell.tooltip !== null
-                          ? "negative"
-                          : "gray"
-                      }
-                      textAlign="center"
-                      size="large"
-                    >
-                      {cell.result}
-                    </TableCell>
+      <Grid>
+        <GridRow columns={2}>
+          {Object.entries(games).map(([tournament, gameData]) => (
+            <GridColumn md={8} sm={16}>
+              <h2>{tournament}</h2>
+              {gameData && FutebolVirtualStore.loadingInitial === false ? (
+                <Table key={tournament}>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHeaderCell></TableHeaderCell>
+                      {gameData.minutes.map((minute) => (
+                        <TableHeaderCell key={keyLine++}>
+                          {minute.number}
+                        </TableHeaderCell>
+                      ))}
+                    </TableRow>
+                  </TableHeader>
+
+                  {gameData.lines.map((line) => (
+                    <TableBody key={keyLine++}>
+                      <TableRow>
+                        <TableHeaderCell>{line.hora}</TableHeaderCell>
+                        {line.cells.map((cell) => (
+                          <TableCell
+                            key={keyCell++}
+                            className={
+                              cell.isGreen === true
+                                ? "positive"
+                                : cell.tooltip !== null
+                                ? "negative"
+                                : "gray"
+                            }
+                            textAlign="center"
+                            size="large"
+                          >
+                            {cell.result}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableBody>
                   ))}
-                </TableBody>
-              ))}
-            </Table>
-          ) : (
-            <></>
-          )}
-        </>
-      ))}
+                </Table>
+              ) : (
+                <></>
+              )}
+            </GridColumn>
+          ))}
+        </GridRow>
+      </Grid>
     </>
   );
 });
