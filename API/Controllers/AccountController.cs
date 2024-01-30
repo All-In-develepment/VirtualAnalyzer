@@ -30,11 +30,18 @@ namespace API.Controllers
 
             if (user == null) return Unauthorized();
 
-            var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+            var resultCheckPassword = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
-            if (result)
+            if (resultCheckPassword)
             {
-                return CreateUserObject(user);
+                // var userExpierDate = _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email).Result.ExpireDate;
+                var resultCheckExpireDate = DateTime.Compare(user.ExpireDate, DateTime.Now);
+                if (resultCheckExpireDate > -3)
+                {
+                    return CreateUserObject(user);
+                }
+
+                return Unauthorized("Usuário expirado");
             }
 
             return Unauthorized();

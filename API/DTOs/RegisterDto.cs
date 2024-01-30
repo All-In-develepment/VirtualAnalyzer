@@ -17,5 +17,8 @@ namespace API.DTOs
 
         [Required]
         public string Username { get; set; }
+
+        public DateTime JoinDate { get; set; } = DateTime.Now;
+        public DateTime ExpireDate { get; set; } = DateTime.Now.AddDays(7);
     }
 }
