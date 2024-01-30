@@ -8,6 +8,7 @@ import { useStore } from '../stores/store';
 import { useEffect } from 'react';
 import LoadingComponent from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
+import ResponsiveMenu from './ResponsiveMenu';
 // import TimesDashboard from '../../features/futebolVirtualGames/times/TimesDashboard';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       {location.pathname === '/' ? <HomePage /> : (
         <>
           <NavBar />
+          {/* <ResponsiveMenu /> */}
           <Container style={{ marginTop: '7em' }}>
             <Outlet />
           </Container>
