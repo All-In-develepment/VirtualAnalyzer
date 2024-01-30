@@ -1,17 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../app/stores/store";
 import { useEffect, useState } from "react";
-/*import {
-  Grid,
-  GridColumn,
-  GridRow,
-  Label,
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableHeaderCell,
-} from "semantic-ui-react";*/
 import { GameTimes } from "../../../app/models/gameTimes";
 
 import Paper from '@mui/material/Paper';
@@ -20,16 +9,18 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
 
 import {Grid} from '@mui/material';
-//import { Grid, Item } from "semantic-ui-react";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import useTheme from "@mui/material/styles/useTheme";
 import { styled } from '@mui/material/styles';
 import GridRow from "semantic-ui-react/dist/commonjs/collections/Grid/GridRow";
 import Label from "semantic-ui-react/dist/commonjs/elements/Label";
+import { GridColumn } from "semantic-ui-react";
+
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 
 export default observer(function TimesDashboard() {
@@ -52,11 +43,11 @@ export default observer(function TimesDashboard() {
     gamesData ? setGames(gamesData) : console.log("ihh rapaz");
   }
 
-  const handleChangeTime = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeTime = (event: SelectChangeEvent) => {
     setSelectedHours(event.target.value);
   };
 
-  const handleChangeMarket = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeMarket = (event: SelectChangeEvent) => {
     setSelectedMarket(event.target.value);
   };
 
@@ -76,32 +67,21 @@ export default observer(function TimesDashboard() {
     color: theme.palette.text.secondary,
   }));
 
+  // Teste --------------------
+  const handleChange = (event: SelectChangeEvent) => {
+    setSelectedHours(event.target.value as string);
+  };
+  // Fim Teste ----------------
+
   return (
     <>
-      {/*<Grid className="gridLigas">
-        <GridRow columns={4} textAlign="center">
-          <GridColumn onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa" >
-            <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" />
-          </GridColumn>
-          <GridColumn onClick={() => setSelectedTournament("20120650")} className="bannerCopaDoMundo" >
-            <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
-          </GridColumn>
-          <GridColumn onClick={() => setSelectedTournament("20120653")} className="bannerPremierShip" >
-            <img src="/assets/banners/premiership.jpg" alt="Premier League" className="leagues_buton" />
-          </GridColumn>
-          <GridColumn onClick={() => setSelectedTournament("20849528")} className="bannerSuperLeague" >
-            <img src="/assets/banners/superleague.jpg" alt="Sul-Americana" className="leagues_buton" />
-          </GridColumn>
-        </GridRow>
-  </Grid>*/}
-
       <Grid container spacing={1} className="gridLigas">
         <Grid md={3} onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa">
-           <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" /> 
+          <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" /> 
         </Grid>
 
         <Grid md={3} onClick={() => setSelectedTournament("20120650")} className="bannerCopaDoMundo">
-           <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
+          <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
         </Grid>
 
         <Grid md={3} onClick={() => setSelectedTournament("20120653")} className="bannerPremierShip">
@@ -114,42 +94,58 @@ export default observer(function TimesDashboard() {
       </Grid>
 
 
-      <Grid className="selectMercado">
+      <Grid>
         <GridRow>
-          <Label htmlFor="timeChoese">Escolha uma opção:</Label>
-          <select
-            id="timeChoese"
-            value={selectedHours}
-            onChange={handleChangeTime}
-          >
-            <option value="3">3 horas</option>
-            <option value="6">6 horas</option>
-            <option value="9">9 horas</option>
-            <option value="12">12 horas</option>
-            <option value="24">24 horas</option>
-            <option value="72">72 horas</option>
-            <option value="96">96 horas</option>
-          </select>
+          <GridColumn md={8} sm={8}>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="time-analyzer">Tempo de Analise</InputLabel>
+                <Select
+                  labelId="time-analyzer"
+                  id="time-analyzer"
+                  value={selectedHours}
+                  label="Tempo de Analise"
+                  onChange={handleChangeTime}
+                >
+                  <MenuItem value={3}>3 horas</MenuItem>
+                  <MenuItem value={6}>6 horas</MenuItem>
+                  <MenuItem value={9}>9 horas</MenuItem>
+                  <MenuItem value={12}>12 horas</MenuItem>
+                  <MenuItem value={24}>24 horas</MenuItem>
+                  <MenuItem value={72}>72 horas</MenuItem>
+                  <MenuItem value={96}>96 horas</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </GridColumn>
 
-          <Label htmlFor="marketChoese">Escolha uma opção:</Label>
-          <select
-            id="marketChoese"
-            value={selectedMarket}
-            onChange={handleChangeMarket}
-          >
-            <option value="GOLSPAR">GOLS PAR</option>
-            <option value="GOLSIMPAR">GOLS IMPAR</option>
-            <option value="OVER05">OVER 0,5</option>
-            <option value="OVER15">OVER 1,5</option>
-            <option value="OVER25">OVER 2,5</option>
-            <option value="OVER35">OVER 3,5</option>
-            <option value="UNDER05">UNDER 0,5</option>
-            <option value="UNDER15">UNDER 1,5</option>
-            <option value="UNDER25">UNDER 2,5</option>
-            <option value="UNDER35">UNDER 3,5</option>
-          </select>
+          <GridColumn md={8}>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="market-analyzer">Mercado</InputLabel>
+                <Select
+                  labelId="market-analyzer"
+                  id="market-analyzer"
+                  value={selectedMarket}
+                  label="Mercado"
+                  onChange={handleChangeMarket}
+                >
+                  <MenuItem value={"GOLSPAR"}>GOLS PAR</MenuItem>
+                  <MenuItem value={"GOLSIMPAR"}>GOLS IMPAR</MenuItem>
+                  <MenuItem value={"OVER05"}>OVER 0,5</MenuItem>
+                  <MenuItem value={"OVER15"}>OVER 1,5</MenuItem>
+                  <MenuItem value={"OVER25"}>OVER 2,5</MenuItem>
+                  <MenuItem value={"OVER35"}>OVER 3,5</MenuItem>
+                  <MenuItem value={"UNDER05"}>UNDER 0,5</MenuItem>
+                  <MenuItem value={"UNDER15"}>UNDER 1,5</MenuItem>
+                  <MenuItem value={"UNDER25"}>UNDER 2,5</MenuItem>
+                  <MenuItem value={"UNDER35"}>UNDER 3,5</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </GridColumn>
         </GridRow>
-    </Grid>
+      </Grid>
 
 
       <Paper sx={{width: '100%', overflow: 'hidden'}}>
@@ -162,7 +158,7 @@ export default observer(function TimesDashboard() {
                 <TableCell></TableCell>
                 {games.minutes.map((minute) => {
                   return (
-                    <TableCell className="table_header cellHorario" key={keyLine++}>
+                    <TableCell className="table_header cellHorario" key={keyLine++} align="center">
                       {minute.number} min 
                     </TableCell>
                   );

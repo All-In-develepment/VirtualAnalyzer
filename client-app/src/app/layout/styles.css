@@ -129,7 +129,7 @@ body {
 
 .table_detail_body {
   background-color: none !important;
-  color: #000 !important;
+  color: #fff !important;
   font-family: "Rationale" !important;
 } 
 
@@ -150,6 +150,11 @@ body {
 
 .span_max{
   color: #2ecc71;
+}
+
+/* ############### TABLES MÁXIMAS ######### */
+.tablesMax{
+  background-color: #34495E !important;
 }
 
 /*################ KEY FRAMES ##############*/
@@ -182,11 +187,6 @@ body {
 /* ################ MOBILE ############## */
 
 @media screen and (max-width:540px){
-  
-  .tableHorarios{
-    /* font-size: 0.4rem !important; */
-    /* width: 100% !important; */
-  }
 
   .cellHorario{
     font-size: 0.7rem !important;

@@ -1,5 +1,12 @@
 import { observer } from "mobx-react-lite";
-import { Table, TableHeader } from "semantic-ui-react";
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 interface Props {
   score1x0Atual: number;
@@ -16,6 +23,26 @@ interface Props {
   score0x2Maxima: number;
 }
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
 export default observer(function TablePlcarExatoHT({ score1x0Atual,
   score1x0Maxima,
   score0x0Atual,
@@ -29,47 +56,48 @@ export default observer(function TablePlcarExatoHT({ score1x0Atual,
   score0x2Atual,
   score0x2Maxima }: Props) {
   return (
-    <Table textAlign={"center"}>
-      <TableHeader>
-        <Table.Row>
-          <Table.Cell colSpan='3' className="table_detail_header">PLACAR EXATO HT</Table.Cell>
-        </Table.Row>
-        <Table.Row className="table_detail_body">
-          <Table.Cell>CASA</Table.Cell>
-          <Table.Cell>EMPATE</Table.Cell>
-          <Table.Cell>VISITANTE</Table.Cell>
-        </Table.Row>
-      </TableHeader>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell className="table_exact_score_row">
+    <Table>
+      <TableHead>
+        <TableRow>
+          <StyledTableCell colSpan={3} className="table_detail_header">PLACAR EXATO HT</StyledTableCell>
+        </TableRow>
+        <TableRow className="table_detail_body">
+          <StyledTableCell align="center">CASA</StyledTableCell>
+          <StyledTableCell align="center">EMPATE</StyledTableCell>
+          <StyledTableCell align="center">VISITANTE</StyledTableCell>
+        </TableRow>
+      </TableHead>
+
+      <TableBody className="tablesMax">
+        <TableRow>
+          <StyledTableCell align="center" className="table_detail_body">
             1x0<br />
             <span className="span_max">MÁX: {score1x0Atual} / {score1x0Maxima}</span>
-          </Table.Cell>
-          <Table.Cell className="table_exact_score_row">
+          </StyledTableCell>
+          <StyledTableCell align="center" className="table_detail_body">
             0x0<br />
             <span className="span_max">MÁX: {score0x0Atual} / {score0x0Maxima}</span>
-          </Table.Cell>
-          <Table.Cell className="table_exact_score_row">
+          </StyledTableCell>
+          <StyledTableCell align="center" className="table_detail_body">
             0x1<br />
             <span className="span_max">MÁX: {score0x1Atual} / {score0x1Maxima}</span>
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell className="table_exact_score_row">
+          </StyledTableCell>
+        </TableRow>
+        <TableRow>
+          <StyledTableCell align="center" className="table_detail_body">
             2x0<br />
             <span className="span_max">MÁX: {score2x0Atual} / {score2x0Maxima}</span>
-          </Table.Cell>
-          <Table.Cell className="table_exact_score_row">
+          </StyledTableCell>
+          <StyledTableCell align="center" className="table_detail_body">
             1x1<br />
             <span className="span_max">MÁX: {score1x1Atual} / {score1x1Maxima}</span>
-          </Table.Cell>
-          <Table.Cell className="table_exact_score_row">
+          </StyledTableCell>
+          <StyledTableCell align="center" className="table_detail_body">
             0x2<br />
             <span className="span_max">MÁX: {score0x2Atual} / {score0x2Maxima}</span>
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
+          </StyledTableCell>
+        </TableRow>
+      </TableBody>
     </Table>
   )
 });

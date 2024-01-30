@@ -1,5 +1,12 @@
 import { observer } from "mobx-react-lite";
-import { Table, TableHeader } from "semantic-ui-react";
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 interface Props {
   casaMaxima: number;
@@ -10,75 +17,96 @@ interface Props {
   foraAtual: number;
 }
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
 export default observer(function TableResultadoFT({ casaMaxima, casaAtual, empateMaxima, empateAtual, foraMaxima, foraAtual }: Props) {
   return (
-    <Table textAlign={"center"}>
-      <TableHeader>
-        <Table.Row>
-          <Table.Cell colSpan='3' className="table_detail_header">RESULTADO FINAL / FT</Table.Cell>
-        </Table.Row>
-      </TableHeader>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell>
-            <Table textAlign="center">
-              <Table.Body>
-                <Table.Row>
-                  <Table.Cell className="table_detail_header" width={4}>
+    <Table >
+      <TableHead>
+        <TableRow>
+          <StyledTableCell align="center" colSpan={3} className="table_detail_header">RESULTADO FINAL / FT</StyledTableCell>
+        </TableRow>
+      </TableHead>
+
+      <TableBody className="tablesMax">
+        <StyledTableRow>
+          <StyledTableCell align="center">
+            <Table >
+              <TableBody>
+                <StyledTableRow>
+                  <StyledTableCell align="center" className="table_detail_header" width={4}>
                     CASA
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell className="table_detail_body">
+                  </StyledTableCell>
+                </StyledTableRow>
+                <StyledTableRow>
+                  <StyledTableCell align="center" className="table_detail_body">
                     {casaAtual}
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell className="table_detail_header">MÁXIMA: {casaMaxima}</Table.Cell>
-                </Table.Row>
-              </Table.Body>
+                  </StyledTableCell>
+                </StyledTableRow>
+                <StyledTableRow>
+                  <StyledTableCell align="center" className="table_detail_header">MÁXIMA: {casaMaxima}</StyledTableCell>
+                </StyledTableRow>
+              </TableBody>
             </Table>
-          </Table.Cell>
-          <Table.Cell>
-            <Table textAlign="center">
-              <Table.Body>
-                <Table.Row>
-                  <Table.Cell className="table_detail_header" width={4}>
+          </StyledTableCell>
+          <StyledTableCell align="center">
+            <Table >
+              <TableBody>
+                <StyledTableRow>
+                  <StyledTableCell align="center" className="table_detail_header" width={4}>
                     EMPATE
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell className="table_detail_body">
+                  </StyledTableCell>
+                </StyledTableRow>
+                <StyledTableRow>
+                  <StyledTableCell align="center" className="table_detail_body">
                     {empateAtual}
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell className="table_detail_header">MÁXIMA: {empateMaxima}</Table.Cell>
-                </Table.Row>
-              </Table.Body>
+                  </StyledTableCell>
+                </StyledTableRow>
+                <StyledTableRow>
+                  <StyledTableCell align="center" className="table_detail_header">MÁXIMA: {empateMaxima}</StyledTableCell>
+                </StyledTableRow>
+              </TableBody>
             </Table>
-          </Table.Cell>
-          <Table.Cell>
-            <Table textAlign="center">
-              <Table.Body>
-                <Table.Row>
-                  <Table.Cell className="table_detail_header" width={4}>
+          </StyledTableCell>
+          <StyledTableCell align="center">
+            <Table >
+              <TableBody>
+                <StyledTableRow>
+                  <StyledTableCell align="center" className="table_detail_header" width={4}>
                     FORA
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell className="table_detail_body">
+                  </StyledTableCell>
+                </StyledTableRow>
+                <StyledTableRow>
+                  <StyledTableCell align="center" className="table_detail_body">
                     {foraAtual}
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell className="table_detail_header">MÁXIMA: {foraMaxima}</Table.Cell>
-                </Table.Row>
-              </Table.Body>
+                  </StyledTableCell>
+                </StyledTableRow>
+                <StyledTableRow>
+                  <StyledTableCell align="center" className="table_detail_header">MÁXIMA: {foraMaxima}</StyledTableCell>
+                </StyledTableRow>
+              </TableBody>
             </Table>
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
+          </StyledTableCell>
+        </StyledTableRow>
+      </TableBody>
     </Table>
   )
 });

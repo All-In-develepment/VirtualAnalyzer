@@ -3,12 +3,12 @@ import { useStore } from "../../../app/stores/store";
 
 import {
   Button,
-  Grid,
+  // Grid,
   GridColumn,
   GridRow,
   Label,
-  Table,
-  TableCell,
+  // Table,
+  // TableCell,
 } from "semantic-ui-react";
 import { useEffect, useState } from "react";
 import { Data, ListMaxima, Maximas } from "../../../app/models/maximas";
@@ -26,7 +26,8 @@ import TablePrimeiroAMarcar from "./Tables/TablePrimeiroAMarcar";
 import TablePrimerioTimeAMarcar from "./Tables/TablePrimerioTimeAMarcar";
 import TableUltimoTimeAMarcar from "./Tables/TableUltimoTimeAMarcar";
 import Odds from "../odds/Odds";
-import modalStore from "../../../app/stores/modalStore";
+import { Grid, TableContainer, TableHead, TableBody, TableRow, TableCell, tableCellClasses, Table, Paper } from "@mui/material";
+import { styled } from '@mui/material/styles';
 
 export default observer(function MaximasDashboard() {
   const { MaximasStore, modalStore } = useStore();
@@ -571,168 +572,72 @@ export default observer(function MaximasDashboard() {
     return <Odds leagueId={String(leagueId)}/>;
   };
 
+  let larguraDaTela = window.innerWidth;
+  // console.log(larguraDaTela);
+
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
   return (
     <>
       {/* Botões de seleção de liga */}
-      <Grid>
-        <GridRow columns={4} textAlign="center">
-          <GridColumn
-            onClick={() => setSelectedTournament("20700663")}
-            className="bannerEuroCopa"
-          >
-            <img
-              src="/assets/banners/euro_cup.jpg"
-              alt="Euro Cup"
-              className="leagues_buton"
-            />
-          </GridColumn>
-          <GridColumn
-            onClick={() => setSelectedTournament("20120650")}
-            className="bannerCopaDoMundo"
-          >
-            <img
-              src="/assets/banners/copa_do_mundo.jpg"
-              alt="Copa do Mundo"
-              className="leagues_buton"
-            />
-          </GridColumn>
-          <GridColumn
-            onClick={() => setSelectedTournament("20120653")}
-            className="bannerPremierShip"
-          >
-            <img
-              src="/assets/banners/premiership.jpg"
-              alt="Premier League"
-              className="leagues_buton"
-            />
-          </GridColumn>
-          <GridColumn
-            onClick={() => setSelectedTournament("20849528")}
-            className="bannerSuperLeague"
-          >
-            <img
-              src="/assets/banners/superleague.jpg"
-              alt="Sul-Americana"
-              className="leagues_buton"
-            />
-          </GridColumn>
-        </GridRow>
+      <Grid container spacing={1} className="gridLigas">
+        <Grid md={3} onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa">
+          <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" /> 
+        </Grid>
+
+        <Grid md={3} onClick={() => setSelectedTournament("20120650")} className="bannerCopaDoMundo">
+          <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
+        </Grid>
+
+        <Grid md={3} onClick={() => setSelectedTournament("20120653")} className="bannerPremierShip">
+          <img src="/assets/banners/premiership.jpg" alt="Premier League" className="leagues_buton" />
+        </Grid>
+
+        <Grid md={3} onClick={() => setSelectedTournament("20849528")} className="bannerSuperLeague">
+          <img src="/assets/banners/superleague.jpg" alt="Sul-Americana" className="leagues_buton" />
+        </Grid>
       </Grid>
 
       {/* Gráfico */}
       {dataTournament && (
-        <Grid textAlign="center">
-          <MainLineChart
-            over15={dataTournament.chart.over15}
-            over25={dataTournament.chart.over25}
-            under25={dataTournament.chart.under25}
-            ambasMarcam={dataTournament.chart.ambasMarcam}
-            casaHT={dataTournament.chart.casaHT}
-            empateHT={dataTournament.chart.empateHT}
-            visitanteHT={dataTournament.chart.visitanteHT}
-            casaFT={dataTournament.chart.casaFT}
-            empateFT={dataTournament.chart.empateFT}
-            visitanteFT={dataTournament.chart.visitanteFT}
-            empateOuCasa={dataTournament.chart.empateOuCasa}
-            visitanteOuCasa={dataTournament.chart.visitanteOuCasa}
-            empateOuVisitante={dataTournament.chart.empateOuVisitante}
-          />
+        <Grid textAlign="center" columns={1} >
+          <GridColumn>
+            <MainLineChart
+              over15={dataTournament.chart.over15}
+              over25={dataTournament.chart.over25}
+              under25={dataTournament.chart.under25}
+              ambasMarcam={dataTournament.chart.ambasMarcam}
+              casaHT={dataTournament.chart.casaHT}
+              empateHT={dataTournament.chart.empateHT}
+              visitanteHT={dataTournament.chart.visitanteHT}
+              casaFT={dataTournament.chart.casaFT}
+              empateFT={dataTournament.chart.empateFT}
+              visitanteFT={dataTournament.chart.visitanteFT}
+              empateOuCasa={dataTournament.chart.empateOuCasa}
+              visitanteOuCasa={dataTournament.chart.visitanteOuCasa}
+              empateOuVisitante={dataTournament.chart.empateOuVisitante}
+              height={ larguraDaTela > 1000 ? 400 : 300 }
+              width={ larguraDaTela * 0.9 }
+              marginLeft={ larguraDaTela > 1000 ? 20 : 0}
+              marginRight={ larguraDaTela > 1000 ? 20 : 0}
+            />
+          </GridColumn>
         </Grid>
       )}
 
       {golsPar && (
         <Grid>
           <GridRow columns={2} textAlign="center">
-            {/* Primeir Coluna */}
-            <GridColumn>
-              <Table>
-                <Table.Header
-                  textAlign="center"
-                  className="table_detail_header"
-                >
-                  <Table.Cell></Table.Cell>
-                  <Table.Cell>Hora</Table.Cell>
-                  <Table.Cell></Table.Cell>
-                  <TableCell>Casa</TableCell>
-                  <TableCell>Placar</TableCell>
-                  <TableCell>Visitante</TableCell>
-                  <TableCell></TableCell>
-                </Table.Header>
-                <Table.Body className="table_detail_body">
-                  {dataTournament?.matches.map((match) => (
-                    <Table.Row key={match.data.id}>
-                      <Table.Cell>
-												{/* Botaão para abrir o composnete Odds como modal em fullscreen */}
-												<Button
-													onClick={() =>
-														modalStore.openModal(
-															renderOddsComponent(match.data.id), 'large'
-														)
-													}
-													size="medium"
-													inverted
-												>
-													ODDS
-												</Button>
-                        {/* <Button
-                          onClick={() =>
-                            modalStore.openModal(
-                              <Odds leagueId={String(match.data.id)} />, 'fullscreen'
-                            )
-                          }
-                          size="medium"
-                          inverted
-                        >
-                          ODDS
-                        </Button> */}
-                      </Table.Cell>
-                      <Table.Cell>{match.data.date.split("T")[1]}</Table.Cell>
-                      <Table.Cell>
-                        {match.homeTop3.map((homeTop) =>
-                          homeTop.idTeamWinner === homeTop.idTeamHome ? (
-                            <Label color="green">V</Label>
-                          ) : homeTop.finalTimeDraw === true ? (
-                            <Label color="yellow">E</Label>
-                          ) : (
-                            <Label color="red">D</Label>
-                          )
-                        )}
-                      </Table.Cell>
-                      <Table.Cell>
-                        <img
-                          src={`/assets/flags/${match.data.homeImg}`}
-                          alt={match.data.homeImg}
-                          width={60}
-                        />
-                        {match.data.teamHome}
-                      </Table.Cell>
-                      <Table.Cell>{match.data.finalTimeResult}</Table.Cell>
-                      <Table.Cell>
-                        <img
-                          src={`/assets/flags/${match.data.awayImg}`}
-                          alt={match.data.awayImg}
-                          width={60}
-                        />
-                        {match.data.teamAway}
-                      </Table.Cell>
-                      <Table.Cell>
-                        {match.awayTop3.map((awayTop) =>
-                          awayTop.idTeamWinner === awayTop.idTeamAway ? (
-                            <Label color="green">V</Label>
-                          ) : awayTop.finalTimeDraw === true ? (
-                            <Label color="yellow">E</Label>
-                          ) : (
-                            <Label color="red">D</Label>
-                          )
-                        )}
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
-            </GridColumn>
 
-            {/* Segunda Coluna */}
+            {/* Primeira Coluna */}
             <GridColumn>
               {/* Sessão PAR / IMPAR */}
               <TableImparPar
@@ -740,7 +645,7 @@ export default observer(function MaximasDashboard() {
                 parMaxima={golsPar!.maxima}
                 imparAtual={golsImpar!.atual}
                 imparMaxima={golsImpar!.maxima}
-              />
+              /><br />
 
               {/* Sessão OVER GOLS */}
               <TableOverGols
@@ -752,7 +657,7 @@ export default observer(function MaximasDashboard() {
                 over25Maxima={over25!.maxima}
                 over35Atual={over35!.atual}
                 over35Maxima={over35!.maxima}
-              />
+              /><br />
 
               {/* Sessão UNDER GOLS */}
               <TableUnderGols
@@ -764,7 +669,7 @@ export default observer(function MaximasDashboard() {
                 under25Maxima={under25!.maxima}
                 under35Atual={under35!.atual}
                 under35Maxima={under35!.maxima}
-              />
+              /><br />
 
               {/* Sessão GOLS Exatos */}
               <TableGolsExato
@@ -780,7 +685,7 @@ export default observer(function MaximasDashboard() {
                 gols4Maxima={gols4!.maxima}
                 gols5Atual={gols5!.atual}
                 gols5Maxima={gols5!.maxima}
-              />
+              /><br />
 
               {/* Sessão AMBAS MARCAM */}
               <TableAmbasMarcam
@@ -788,7 +693,7 @@ export default observer(function MaximasDashboard() {
                 ambasMarcamMaxima={ambasMarcam!.maxima}
                 ambasNaoMarcamAtual={ambasNaoMarcam!.atual}
                 ambasNaoMarcamMaxima={ambasNaoMarcam!.maxima}
-              />
+              /><br />
 
               {/* Sessão Resultado Intervalo / HT */}
               <TableResultadoHT
@@ -798,7 +703,7 @@ export default observer(function MaximasDashboard() {
                 empateMaxima={empateHT!.maxima}
                 foraAtual={visitanteHT!.atual}
                 foraMaxima={visitanteHT!.maxima}
-              />
+              /><br />
 
               {/* Sessão Resultado Final / FT */}
               <TableResultadoFT
@@ -808,7 +713,7 @@ export default observer(function MaximasDashboard() {
                 empateMaxima={empateFT!.maxima}
                 foraAtual={visitanteFT!.atual}
                 foraMaxima={visitanteFT!.maxima}
-              />
+              /><br />
 
               {/* Sessão Placar Exato FT */}
               <TableResultadoExatoFT
@@ -850,7 +755,7 @@ export default observer(function MaximasDashboard() {
                 score4x0Maxima={score4x0FT!.maxima}
                 score0x4Atual={score0x4FT!.atual}
                 score0x4Maxima={score0x4FT!.maxima}
-              />
+              /><br />
 
               {/* Sessão Placar Exato HT */}
               <TablePlcarExatoHT
@@ -866,7 +771,7 @@ export default observer(function MaximasDashboard() {
                 score1x1Maxima={score1x1HT!.maxima}
                 score0x2Atual={score0x2HT!.atual}
                 score0x2Maxima={score0x2HT!.maxima}
-              />
+              /><br />
 
               {/* Sessão Primeiro a Marcar */}
               <TablePrimeiroAMarcar
@@ -892,7 +797,7 @@ export default observer(function MaximasDashboard() {
                 outroJogadorCasaMaxima={outroJogadorCasa!.maxima}
                 outroJogadorVisitanteAtual={outroJogadorVisitante!.atual}
                 outroJogadorVisitanteMaxima={outroJogadorVisitante!.maxima}
-              />
+              /><br />
 
               {/* Sessão Primeiro Time a Marcar */}
               <TablePrimerioTimeAMarcar
@@ -902,7 +807,7 @@ export default observer(function MaximasDashboard() {
                 empateMaxima={primeiroTimeSemMarcador!.maxima}
                 foraAtual={primeiroTimeVisitante!.atual}
                 foraMaxima={primeiroTimeVisitante!.maxima}
-              />
+              /><br />
 
               {/* Sessão Ultimo Time a Marcar */}
               <TableUltimoTimeAMarcar
@@ -912,7 +817,84 @@ export default observer(function MaximasDashboard() {
                 empateMaxima={ultimoTimeVisitante!.maxima}
                 foraAtual={ultimoTimeSemMarcador!.atual}
                 foraMaxima={ultimoTimeSemMarcador!.maxima}
-              />
+              /><br />
+            </GridColumn>
+
+            {/* Segunda Coluna */}
+            <GridColumn>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell>Hora</StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell>Casa</StyledTableCell>
+                    <StyledTableCell>Placar</StyledTableCell>
+                    <StyledTableCell>Visitante</StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                  </TableHead>
+                  <TableBody className="tablesMax">
+                    {dataTournament?.matches.map((match) => (
+                      <TableRow key={match.data.id}>
+                        <StyledTableCell align="center" className="table_detail_body">
+                          {/* Botaão para abrir o composnete Odds como modal em fullscreen */}
+                          <Button
+                            onClick={() =>
+                              modalStore.openModal(
+                                renderOddsComponent(match.data.id), 'large'
+                              )
+                            }
+                            size="medium"
+                            
+                          >
+                            ODDS
+                          </Button>
+                        </StyledTableCell>
+                        <StyledTableCell align="center" className="table_detail_body">{match.data.date.split("T")[1]}</StyledTableCell>
+                        <StyledTableCell align="center" className="table_detail_body">
+                          {match.homeTop3.map((homeTop) =>
+                            homeTop.idTeamWinner === homeTop.idTeamHome ? (
+                              <Label color="green">V</Label>
+                            ) : homeTop.finalTimeDraw === true ? (
+                              <Label color="yellow">E</Label>
+                            ) : (
+                              <Label color="red">D</Label>
+                            )
+                          )}
+                        </StyledTableCell>
+                        <StyledTableCell align="center" className="table_detail_body">
+                          <img
+                            src={`/assets/flags/${match.data.homeImg}`}
+                            alt={match.data.homeImg}
+                            width={60}
+                          />
+                          {match.data.teamHome}
+                        </StyledTableCell>
+                        <StyledTableCell align="center" className="table_detail_body">{match.data.finalTimeResult}</StyledTableCell>
+                        <StyledTableCell align="center" className="table_detail_body">
+                          <img
+                            src={`/assets/flags/${match.data.awayImg}`}
+                            alt={match.data.awayImg}
+                            width={60}
+                          />
+                          {match.data.teamAway}
+                        </StyledTableCell>
+                        <StyledTableCell align="center" className="table_detail_body">
+                          {match.awayTop3.map((awayTop) =>
+                            awayTop.idTeamWinner === awayTop.idTeamAway ? (
+                              <Label color="green">V</Label>
+                            ) : awayTop.finalTimeDraw === true ? (
+                              <Label color="yellow">E</Label>
+                            ) : (
+                              <Label color="red">D</Label>
+                            )
+                          )}
+                        </StyledTableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </GridColumn>
 
             {/* Fim Segunda Coluna */}
