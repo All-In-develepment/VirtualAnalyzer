@@ -181,7 +181,7 @@ export default observer(function MultiTimesDashboard() {
         {Object.entries(games).map(([tournament, gameData]) => (
           <GridRow>
             <GridColumn md={8} sm={16}>
-              <h2>{tournament}</h2>
+              <h2 className="titulo-mercado">{tournament}</h2>
               {gameData && FutebolVirtualStore.loadingInitial === false ? (
                 <TableContainer component={Paper}>
                   <Table key={tournament} stickyHeader aria-label="sticky tabel" className="tableHorarios">

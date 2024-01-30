@@ -100,6 +100,7 @@ export default observer(function TimesDashboard() {
                   value={selectedHours}
                   label="Tempo de Analise"
                   onChange={handleChangeTime}
+                  className="selectTempo"
                 >
                   <MenuItem value={3}>3 horas</MenuItem>
                   <MenuItem value={6}>6 horas</MenuItem>
