@@ -11,7 +11,7 @@ import {
   TableCell,
 } from "semantic-ui-react";
 import { useEffect, useState } from "react";
-import { Data, ListMaxima, Maximas } from "../../../app/models/maximas";
+import { ListMaxima, Maximas } from "../../../app/models/maximas";
 import MainLineChart from "../../../app/common/chart/mainLineChart";
 import TableImparPar from "./Tables/TableImparPar";
 import TableOverGols from "./Tables/TableOverGols";
@@ -26,7 +26,6 @@ import TablePrimeiroAMarcar from "./Tables/TablePrimeiroAMarcar";
 import TablePrimerioTimeAMarcar from "./Tables/TablePrimerioTimeAMarcar";
 import TableUltimoTimeAMarcar from "./Tables/TableUltimoTimeAMarcar";
 import Odds from "../odds/Odds";
-import modalStore from "../../../app/stores/modalStore";
 
 export default observer(function MaximasDashboard() {
   const { MaximasStore, modalStore } = useStore();
@@ -565,11 +564,6 @@ export default observer(function MaximasDashboard() {
   );
 
   console.log(golsPar?.atual);
-
-  const renderOddsComponent = (leagueId: number) => {
-    console.log("a liga: ", leagueId);
-    return <Odds leagueId={String(leagueId)} />;
-  };
 
   return (
     <>

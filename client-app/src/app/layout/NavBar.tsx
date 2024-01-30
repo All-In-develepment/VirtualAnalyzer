@@ -17,6 +17,7 @@ export default observer(function NavBar() {
         {/* <Menu.Item as={NavLink} to='/activities' name='Activities' />
                 <Menu.Item as={NavLink} to='/errors' name='Errors' /> */}
         <Menu.Item as={NavLink} to="/game-times" name="Horarios" />
+        <Menu.Item as={NavLink} to="/game-multitimes" name="Multi Horarios" />
         <Menu.Item as={NavLink} to="/maximas" name="Máximas" />
         <Menu.Item as={NavLink} to="/last-games" name="Últimos Jogos" />
         {/* <Menu.Item>

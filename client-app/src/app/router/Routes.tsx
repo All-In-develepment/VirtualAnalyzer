@@ -11,6 +11,7 @@ import App from "../layout/App";
 import MaximasDashboard from "../../features/futebolVirtualGames/maximas/MaximasDashboard";
 import TimesDashboard from "../../features/futebolVirtualGames/times/TimesDashboard";
 import LastGames from "../../features/futebolVirtualGames/lastGames/LastGames";
+import MultiTimesDashboard from "../../features/futebolVirtualGames/times/MultiTimesDashboard";
 
 export const routes: RouteObject[] = [
   {
@@ -28,6 +29,7 @@ export const routes: RouteObject[] = [
       { path: "server-error", element: <ServerError /> },
       { path: "maximas", element: <MaximasDashboard /> },
       { path: "game-times", element: <TimesDashboard /> },
+      { path: "game-multitimes", element: <MultiTimesDashboard /> },
       { path: "last-games", element: <LastGames /> },
       { path: "*", element: <Navigate replace to="/not-found" /> },
     ],
