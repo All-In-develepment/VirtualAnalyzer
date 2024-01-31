@@ -1,5 +1,12 @@
 import { observer } from "mobx-react-lite";
-import { Table, TableHeader } from "semantic-ui-react";
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 interface Props {
   semMarcadorAtual: number;
@@ -26,6 +33,26 @@ interface Props {
   outroJogadorVisitanteMaxima: number;
 }
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
 export default observer(function TableResultadoHT({semMarcadorAtual,
   semMarcadorMaxima,
   centroAvanteCasaAtual,
@@ -49,74 +76,75 @@ export default observer(function TableResultadoHT({semMarcadorAtual,
   outroJogadorVisitanteAtual,
   outroJogadorVisitanteMaxima } : Props) {
   return (
-    <Table textAlign={"center"}>
-      <TableHeader>
-        <Table.Row>
-          <Table.Cell colSpan='2' className="table_detail_header">PRIMEIRO A MARCAR</Table.Cell>
-        </Table.Row>
-      </TableHeader>
-      <Table.Body>
-        <Table.Row  className="table_detail_body">
-          <Table.Cell width={8}>CASA</Table.Cell>
-          <Table.Cell width={8}>VISITANTE</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell colSpan='2' className="table_detail_body">
+    <Table>
+      <TableHead>
+        <TableRow>
+          <StyledTableCell align="center" colSpan={2} className="table_detail_header">PRIMEIRO A MARCAR</StyledTableCell>
+        </TableRow>
+        <TableRow  className="table_detail_body">
+          <StyledTableCell align="center" width={8}>CASA</StyledTableCell>
+          <StyledTableCell align="center" width={8}>VISITANTE</StyledTableCell>
+        </TableRow>
+      </TableHead>
+
+      <TableBody>
+        <StyledTableRow>
+          <StyledTableCell align="center" colSpan={2} className="table_detail_body">
             SEM MARCADOR<br />
             <span className="span_max">MÁX: {semMarcadorAtual} / {semMarcadorMaxima}</span>
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row className="table_detail_body">
-          <Table.Cell width={8}>
+          </StyledTableCell>
+        </StyledTableRow>
+        <StyledTableRow>
+          <StyledTableCell align='center' width={8} className="table_detail_body">
             CENTRO AVANTE CASA<br />
             <span className="span_max">MÁX: {centroAvanteCasaAtual} / {centroAvanteCasaMaxima}</span>
-          </Table.Cell>
-          <Table.Cell width={8}>
+          </StyledTableCell>
+          <StyledTableCell align='center' width={8} className="table_detail_body">
             CENTRO AVANTE VISITANTE<br />
             <span className="span_max">MÁX: {centroAvanteVisitanteAtual} / {centroAvanteVisitanteMaxima}</span>
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row  className="table_detail_body">
-          <Table.Cell>
+          </StyledTableCell>
+        </StyledTableRow>
+        <StyledTableRow>
+          <StyledTableCell align='center' className="table_detail_body">
             PONTA DIREITA CASA<br />
             <span className="span_max">MÁX: {pontaDireitaCasaAtual} / {pontaDireitaCasaMaxima}</span>
-          </Table.Cell>
-          <Table.Cell>
+          </StyledTableCell>
+          <StyledTableCell align='center' className="table_detail_body">
             PONTA DIREITA VISITANTE<br />
             <span className="span_max">MÁX: {pontaDireitaVisitanteAtual} / {pontaDireitaVisitanteMaxima}</span>
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row  className="table_detail_body">
-          <Table.Cell>
+          </StyledTableCell>
+        </StyledTableRow>
+        <StyledTableRow>
+          <StyledTableCell align='center' className="table_detail_body">
             PONTA ESQUERDA CASA<br />
             <span className="span_max">MÁX: {pontaEsquerdaCasaAtual} / {pontaEsquerdaCasaMaxima}</span>
-          </Table.Cell>
-          <Table.Cell>
+          </StyledTableCell>
+          <StyledTableCell align='center' className="table_detail_body">
             PONTA ESQUERDA VISITANTE<br />
             <span className="span_max">MÁX: {pontaEsquerdaVisitanteAtual} / {pontaEsquerdaVisitanteMaxima}</span>
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row  className="table_detail_body">
-          <Table.Cell>
+          </StyledTableCell>
+        </StyledTableRow>
+        <StyledTableRow>
+          <StyledTableCell align='center' className="table_detail_body">
             MEIA ATACANTE CASA<br />
             <span className="span_max">MÁX: {meiaAtacanteCasaAtual} / {meiaAtacanteCasaMaxima}</span>
-          </Table.Cell>
-          <Table.Cell>
+          </StyledTableCell>
+          <StyledTableCell align='center' className="table_detail_body">
             MEIA ATACANTE VISITANTE<br />
             <span className="span_max">MÁX: {meiaAtacanteVisitanteAtual} / {meiaAtacanteVisitanteMaxima}</span>
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row  className="table_detail_body">
-          <Table.Cell>
+          </StyledTableCell>
+        </StyledTableRow>
+        <StyledTableRow>
+          <StyledTableCell align='center' className="table_detail_body">
             OUTRO JOGADOR CASA<br />
             <span className="span_max">MÁX: {outroJogadorCasaAtual} / {outroJogadorCasaMaxima}</span>
-          </Table.Cell>
-          <Table.Cell>
+          </StyledTableCell>
+          <StyledTableCell align='center' className="table_detail_body">
             OUTRO JOGADOR VISITANTE<br />
             <span className="span_max">MÁX: {outroJogadorVisitanteAtual} / {outroJogadorVisitanteMaxima}</span>
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
+          </StyledTableCell>
+        </StyledTableRow>
+      </TableBody>
     </Table>
   )
 });

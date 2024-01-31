@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import LoadingComponent from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
 // import TimesDashboard from '../../features/futebolVirtualGames/times/TimesDashboard';
+import MenuSidebar from './MenuSidebar';
 
 function App() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function App() {
       {location.pathname === '/' ? <HomePage /> : (
         <>
           <NavBar />
+          {/* <MenuSidebar /> */}
           <Container style={{ marginTop: '7em' }}>
             <Outlet />
           </Container>

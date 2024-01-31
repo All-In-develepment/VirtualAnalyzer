@@ -16,10 +16,14 @@ interface Props {
     empateOuCasa: number[]
     visitanteOuCasa: number[]
     empateOuVisitante: number[]
+    width: number
+    height: number
+    marginRight: number
+    marginLeft: number
 }
 
 
-export default observer(function MainLineChart({ over15, over25, under25, ambasMarcam, casaHT, empateHT, visitanteHT, casaFT, empateFT, visitanteFT, empateOuCasa, visitanteOuCasa, empateOuVisitante }: Props) {
+export default observer(function MainLineChart({ over15, over25, under25, ambasMarcam, casaHT, empateHT, visitanteHT, casaFT, empateFT, visitanteFT, empateOuCasa, visitanteOuCasa, empateOuVisitante, width, height, marginLeft, marginRight }: Props) {
     // Dados fictícios para o gráfico
     const data = [
         { name: '1', over15: over15[0], over25: over25[0], under25: under25[0], ambas: ambasMarcam[0] },
@@ -46,19 +50,19 @@ export default observer(function MainLineChart({ over15, over25, under25, ambasM
 
     return(
         <LineChart
-            width={1100}
-            height={400}
+            width={ width }
+            height={ height}
             data={data}
             margin={{
             top: 5,
-            right: 30,
-            left: 20,
+            right: marginRight,
+            left: marginLeft,
             bottom: 5,
             }}
         >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
-            <YAxis />
+            {/* <YAxis /> */}
             <Tooltip />
             <Legend />
             <Line type="monotone" dataKey="over15" stroke="#ff0000" />
