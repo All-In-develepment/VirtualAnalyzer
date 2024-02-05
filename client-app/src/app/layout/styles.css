@@ -167,6 +167,11 @@ body {
   background-color: #34495E !important;
 }
 
+/* ############### TABLE ODDS ######### */
+.cabecalho{
+  /* background-color: #333 !important; */
+}
+
 /*################ KEY FRAMES ##############*/
 
 @-webkit-keyframes leagues_buton {
@@ -212,4 +217,5 @@ body {
     flex-wrap: nowrap !important;
     
   }
+
 }

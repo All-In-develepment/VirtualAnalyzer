@@ -67,7 +67,7 @@ export default observer(function MainLineChart({ over15, over25, under25, ambasM
             <Legend />
             <Line type="monotone" dataKey="over15" stroke="#ff0000" />
             <Line type="monotone" dataKey="over25" stroke="#85c2a6" />
-            <Line type="monotone" dataKey="under25" stroke="#ffff00" />
+            <Line type="monotone" dataKey="under25" stroke="#43E0BC" />
             <Line type="monotone" dataKey="ambas" stroke="#00ff00" />
         </LineChart>
     )

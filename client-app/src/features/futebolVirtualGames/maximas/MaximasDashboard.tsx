@@ -610,7 +610,7 @@ export default observer(function MaximasDashboard() {
       {/* Gráfico */}
       {dataTournament && (
         <GridSemantic textAlign="center" columns={1} >
-          <GridColumn>
+          <GridColumn >
             <MainLineChart
               over15={dataTournament.chart.over15}
               over25={dataTournament.chart.over25}
@@ -639,7 +639,7 @@ export default observer(function MaximasDashboard() {
           <GridRow columns={2} textAlign="center">
 
             {/* Primeira Coluna */}
-            <GridColumn >
+            <GridColumn widescreen={8} mobile={16}>
               {/* Sessão PAR / IMPAR */}
               <TableImparPar
                 parAtual={golsPar!.atual}
@@ -822,7 +822,7 @@ export default observer(function MaximasDashboard() {
             </GridColumn>
 
             {/* Segunda Coluna */}
-            <GridColumn>
+            <GridColumn widescreen={8} mobile={16}>
               <TableContainer component={Paper}>
                 <Table>
                   <TableHead>

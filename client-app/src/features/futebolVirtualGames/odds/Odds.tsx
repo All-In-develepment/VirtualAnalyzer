@@ -32,8 +32,8 @@ export default observer(function Odds({ leagueId }: { leagueId: string }) {
             {selectedLeague.teamHome} x {selectedLeague.teamAway}
           </Grid.Row>
           <Grid.Row>
-            <Table>
-              <TableHeader>
+            <Table >
+              <TableHeader >
                 <Table.Row textAlign="center" className="table_exact_score_row">
                   <Table.HeaderCell colSpan="6">TIME VENCEDOR</Table.HeaderCell>
                 </Table.Row>
