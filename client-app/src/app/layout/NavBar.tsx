@@ -88,6 +88,11 @@ export default observer(function NavBar() {
                   <Typography textAlign="center">Últimos Jogos</Typography>
                 </NavLink>
               </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <NavLink to="/batfast-league-mode" >
+                  <Typography textAlign="center">Virtual BetFast</Typography>
+                </NavLink>
+              </MenuItem>
             </Menu>
           </Box>
 
@@ -110,6 +115,11 @@ export default observer(function NavBar() {
             <MenuItem onClick={handleCloseNavMenu}>
               <NavLink onClick={handleCloseNavMenu} to="/last-games" >
                 <Typography textAlign="center" className="menuName">Últimos Jogos</Typography>
+              </NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleCloseNavMenu}>
+              <NavLink onClick={handleCloseNavMenu} to="/batfast-league-mode" >
+                <Typography textAlign="center" className="menuName">Virtual BetFast</Typography>
               </NavLink>
             </MenuItem>
           </Box>
