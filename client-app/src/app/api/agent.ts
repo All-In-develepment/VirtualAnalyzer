@@ -11,6 +11,9 @@ import { FutebolVirtualGames } from "../models/futebolVirtualGames";
 import { GameTimes } from "../models/gameTimes";
 import { ILastGames } from "../models/lastGames";
 import { IOdd } from "../models/odds";
+import * as process from "dotenv";
+
+process.config();
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
@@ -18,7 +21,7 @@ const sleep = (delay: number) => {
   });
 };
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.baseURL = process.config.env.REACT_APP_ENV;
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 

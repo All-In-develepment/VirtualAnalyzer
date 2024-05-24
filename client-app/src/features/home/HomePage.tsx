@@ -17,8 +17,8 @@ export default observer(function HomePage() {
                 </Header>
                 {userStore.isLoggedIn ? (
                     <>
-                        <Header as='h2' inverted content={`Welcome back ${userStore.user?.displayName}`} />
-                        <Button as={Link} to='/maximas' size='huge' inverted>
+                        <Header as='h2' inverted content={`Bem vindo de volta ${userStore.user?.displayName}`} />
+                        <Button as={Link} to='/game-times' size='huge' inverted>
                             Começar a Analizar
                         </Button> 
                     </>

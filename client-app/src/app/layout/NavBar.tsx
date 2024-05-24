@@ -73,7 +73,7 @@ export default observer(function NavBar() {
                   <Typography textAlign="center">Horarios</Typography>
                 </NavLink>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
+              {/* <MenuItem onClick={handleCloseNavMenu}>
                 <NavLink to={"/game-multtimes"} >
                   <Typography textAlign="center">Multi Horarios</Typography>
                 </NavLink>
@@ -92,7 +92,7 @@ export default observer(function NavBar() {
                 <NavLink to="/batfast-league-mode" >
                   <Typography textAlign="center">Virtual BetFast</Typography>
                 </NavLink>
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </Box>
 
@@ -102,7 +102,7 @@ export default observer(function NavBar() {
                 <Typography textAlign="center" className="menuName">Horarios</Typography>
               </NavLink>
             </MenuItem>
-            <MenuItem onClick={handleCloseNavMenu}>
+            {/* <MenuItem onClick={handleCloseNavMenu}>
               <NavLink to={"/game-multtimes"} >
                 <Typography textAlign="center" className="menuName">Multi Horarios</Typography>
               </NavLink>
@@ -121,7 +121,7 @@ export default observer(function NavBar() {
               <NavLink onClick={handleCloseNavMenu} to="/batfast-league-mode" >
                 <Typography textAlign="center" className="menuName">Virtual BetFast</Typography>
               </NavLink>
-            </MenuItem>
+            </MenuItem> */}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
