@@ -33,7 +33,7 @@ function App() {
         <>
           <NavBar />
           {/* <MenuSidebar /> */}
-          <Container style={{ marginTop: '7em' }}>
+          <Container style={{ marginTop: '2em' }}>
             <Outlet />
           </Container>
         </>

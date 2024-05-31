@@ -30,7 +30,7 @@ export default observer(function TimesDashboard() {
   const { loadFutebolVirtualGames } = FutebolVirtualStore;
 
   const [selectedHours, setSelectedHours] = useState("12");
-  const [selectedMarket, setSelectedMarket] = useState("GOLSPAR");
+  const [selectedMarket, setSelectedMarket] = useState("OVER25");
   const [selectedTournament, setSelectedTournament] = useState("20700663");
   const [games, setGames] = useState<GameTimes>();
 
@@ -69,28 +69,34 @@ export default observer(function TimesDashboard() {
 
   return (
     <>
-      <Grid container spacing={1} className="gridLigas">
-        <Grid md={3} onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa">
-          <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" /> 
-        </Grid>
+      <Box sx={{ flexGrow: 1 }} justifyContent="center" alignItems="center">
+        <Grid 
+          container 
+          columns={{ xs: 4, sm: 12, md: 12 }} 
+          justifyContent="center" 
+          alignItems="center"
+        >
+          <Grid xs={2} sm={3} md={3} justifyContent="center" alignItems="center" onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa">
+            <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" /> 
+          </Grid>
 
-        <Grid md={3} onClick={() => setSelectedTournament("20120650")} className="bannerCopaDoMundo">
-          <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
-        </Grid>
+          <Grid xs={2} sm={3} md={3} justifyContent="center" alignItems="center" onClick={() => setSelectedTournament("20120650")} className="bannerCopaDoMundo">
+            <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
+          </Grid>
 
-        <Grid md={3} onClick={() => setSelectedTournament("20120653")} className="bannerPremierShip">
-          <img src="/assets/banners/premiership.jpg" alt="Premier League" className="leagues_buton" />
-        </Grid>
+          <Grid xs={2} sm={3} md={3} justifyContent="center" alignItems="center" onClick={() => setSelectedTournament("20120653")} className="bannerPremierShip">
+            <img src="/assets/banners/premiership.jpg" alt="Premier League" className="leagues_buton" />
+          </Grid>
 
-        <Grid md={3} onClick={() => setSelectedTournament("20849528")} className="bannerSuperLeague">
-          <img src="/assets/banners/superleague.jpg" alt="Sul-Americana" className="leagues_buton" />
+          <Grid xs={2} sm={3} md={3} justifyContent="center" alignItems="center" onClick={() => setSelectedTournament("20849528")} className="bannerSuperLeague">
+            <img src="/assets/banners/superleague.jpg" alt="Sul-Americana" className="leagues_buton" />
+          </Grid>
         </Grid>
-      </Grid>
-
+      </Box>
 
       <GridSemantic>
-        <GridRow columns={2}>
-          <GridColumn md={8} sm={8}>
+        <GridRow>
+          <GridColumn md={16} sm={16}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="time-analyzer">Tempo de Analise</InputLabel>
@@ -102,21 +108,27 @@ export default observer(function TimesDashboard() {
                   onChange={handleChangeTime}
                   className="selectTempo"
                 >
-                  <MenuItem value={3}>3 horas</MenuItem>
-                  <MenuItem value={6}>6 horas</MenuItem>
+                  {/* <MenuItem value={3}>3 horas</MenuItem>
+                  <MenuItem value={6}>6 horas</MenuItem> */}
                   <MenuItem value={9}>9 horas</MenuItem>
                   <MenuItem value={12}>12 horas</MenuItem>
                   <MenuItem value={24}>24 horas</MenuItem>
-                  <MenuItem value={72}>72 horas</MenuItem>
-                  <MenuItem value={96}>96 horas</MenuItem>
+                  {/* <MenuItem value={72}>72 horas</MenuItem>
+                  <MenuItem value={96}>96 horas</MenuItem> */}
                 </Select>
               </FormControl>
             </Box>
           </GridColumn>
 
-          <GridColumn md={8}>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
+          {/* <GridColumn md={8}>
+            <Box sx={{ minWidth: 120 }}> */}
+              {/* LEGENDA
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Item>Green</Item>
+                <Item>Red</Item>
+                <Item>Futuros Jogos</Item>
+              </Box> */}
+              {/* <FormControl fullWidth>
                 <InputLabel id="market-analyzer">Mercado</InputLabel>
                 <Select
                   labelId="market-analyzer"
@@ -136,9 +148,9 @@ export default observer(function TimesDashboard() {
                   <MenuItem value={"UNDER25"}>UNDER 2,5</MenuItem>
                   <MenuItem value={"UNDER35"}>UNDER 3,5</MenuItem>
                 </Select>
-              </FormControl>
-            </Box>
-          </GridColumn>
+              </FormControl> */}
+            {/* </Box>
+          </GridColumn> */}
         </GridRow>
       </GridSemantic>
       <br />
@@ -149,45 +161,47 @@ export default observer(function TimesDashboard() {
           
 
             {games && FutebolVirtualStore.loadingInitial === false ? (
-            <Table stickyHeader aria-label="sticky tabel" className="tableHorarios">
+            <Table aria-label="sticky tabel" className="tableHorarios">
               <TableHead>
                 <TableRow>
                   <TableCell></TableCell>
                   {games.minutes.map((minute) => {
                     return (
                       <TableCell className="table_header cellHorario" key={keyLine++} align="center">
-                        {minute.number} min 
+                        {minute.number}
                       </TableCell>
                     );
                   })}
                 </TableRow>
               </TableHead>
-              {games.lines.map((line) => {
-                return (
-                  <TableBody>
-                    <TableCell className="coluna_esquerda" key={keyLine++}>{line.hora}</TableCell>
-                    {line.cells.map((cell) => {
-                      return (
-                        <TableCell                    
-                          key={keyCell++}
-                          className={
-                            
-                            cell.isGreen === true
-                              ? "green cellHorario"
-                              : cell.tooltip !== null
-                              ? "red cellHorario"
-                              : "gray cellHorario"
-                          }
-                          //textAlign="center"
-                          //size="large"
-                        >
-                          {cell.result}
-                        </TableCell>
-                      );
-                    })}
-                  </TableBody>
-                );
-              })}
+              <TableBody>
+                {games.lines.map((line) => {
+                  return (
+                    <TableRow>
+                      <TableCell className="coluna_esquerda" key={keyLine++}>{line.hora}</TableCell>
+                      {line.cells.map((cell) => {
+                        return (
+                          <TableCell                    
+                            key={keyCell++}
+                            className={
+                              
+                              cell.isGreen === true
+                                ? "green cellHorario"
+                                : (cell.tooltip !== null && cell.sumScore > 0) || cell.result === '0-0'
+                                  ? "red cellHorario"
+                                  : "gray cellHorario"
+                            }
+                            //textAlign="center"
+                            //size="large"
+                          >
+                            {cell.result}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
             </Table>
           ) : (
             <></>

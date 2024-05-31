@@ -147,7 +147,9 @@ export default observer(function NavBar() {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu} >
-                <Typography textAlign="center">Perfil</Typography>
+                {/* <NavLink to={`/profiles/${user?.username}`} > */}
+                  <Typography textAlign="center">Perfil</Typography>
+                {/* </NavLink> */}
               </MenuItem>
               <MenuItem onClick={logout}>
                 <Typography textAlign="center">Sair</Typography>

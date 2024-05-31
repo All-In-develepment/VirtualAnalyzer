@@ -18,6 +18,9 @@ namespace Persistence
         public DbSet<Configuration> Configurations { get; set; }
         public DbSet<FutebolVirtualGame> FutebolVirtualGames { get; set; }
         public DbSet<FutebolVirtualLeague> FutebolVirtualLeagues { get; set; }
+        public DbSet<HublaNewUser> HublaNewUsers { get; set; }
+        public DbSet<HublaNewSale> HublaNewSales { get; set; }
+        public DbSet<HublaCanceledSale> HublaCanceledSales { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
