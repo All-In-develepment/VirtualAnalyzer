@@ -16,12 +16,12 @@
 
 
 body {
-  background-color: #34495e !important;
+  background-color: #282828 !important;
   font-family: "Poppins";
 }
 
 .ui.inverted.top.fixed.menu {
-  background-color: #485b6e;
+  background-color: #000000;
 
 
   /*background-image: linear-gradient(
@@ -57,9 +57,9 @@ body {
   align-items: center;
   background-image: linear-gradient(
           135deg,
-          rgb(52, 73, 94) 0%,
-          rgb(33, 138, 174) 69%,
-          rgb(32, 167, 172) 89%
+          rgb(0, 0, 0) 0%,
+          rgb(0, 0, 0) 69%,
+          rgb(0, 0, 0) 89%
   ) !important;
   height: 100vh;
 }
@@ -86,11 +86,16 @@ body {
 /*end home page styles*/
 
 .green{
-  background-color: #56cf6a !important;
+  background-color: #28FFBB !important;
 }
 
 .red{
-  background-color: #cf4c4c !important;
+  background-color: #CC1430 !important;
+  color: #ffffff !important;
+}
+
+.gray{
+  color: #ffffff !important;
 }
 
 .react-datepicker-wrapper {
@@ -204,9 +209,9 @@ body {
 @media screen and (max-width:540px){
 
   .cellHorario{
-    font-size: 0.7rem !important;
+    font-size: 0.9rem !important;
     /* padding: 1rem 2rem !important; */
-    text-align: justify !important;
+    text-align: center !important;
   }
   
   .leagues_buton{

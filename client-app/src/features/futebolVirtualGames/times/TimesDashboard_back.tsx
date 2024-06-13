@@ -10,9 +10,9 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 
-import {Grid, TableRow, ThemeProvider, styled} from '@mui/material';
+import {Grid, TableRow} from '@mui/material';
 import GridRow from "semantic-ui-react/dist/commonjs/collections/Grid/GridRow";
-import { Card, CardContent, Grid as GridSemantic } from "semantic-ui-react";
+import { Grid as GridSemantic } from "semantic-ui-react";
 import { GridColumn } from "semantic-ui-react";
 
 import Box from '@mui/material/Box';
@@ -58,13 +58,13 @@ export default observer(function TimesDashboard() {
     [selectedTournament, selectedMarket, selectedHours]
   );
 
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: 40,
-    lineHeight: '40px',
-  }));
+  // const Item = styled(Paper)(({ theme }) => ({
+  //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  //   ...theme.typography.body2,
+  //   padding: theme.spacing(1),
+  //   textAlign: 'center',
+  //   color: theme.palette.text.secondary,
+  // }));
 
   return (
     <>
@@ -74,7 +74,6 @@ export default observer(function TimesDashboard() {
           columns={{ xs: 4, sm: 12, md: 12 }} 
           justifyContent="center" 
           alignItems="center"
-          item
         >
           <Grid xs={2} sm={3} md={3} justifyContent="center" alignItems="center" onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa">
             <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" /> 
@@ -156,124 +155,53 @@ export default observer(function TimesDashboard() {
       <br />
 
 
-      { games && FutebolVirtualStore.loadingInitial === false ? (
-        <GridSemantic container spacing={2}>
-          {games.lines.map((line, index) => (
-            <GridSemantic centered item xs={3} key={index}>
-              <GridRow xs={16} centered>
-                <Box
-                  sx={{
-                    p: 2,
-                    borderRadius: 2,
-                    display: 'flex',
-                    gridTemplateColumns: { md: '1fr 1fr' },
-                    gap: 1,
-                    textAlign: 'center',
-                    flexWrap: 'wrap',
-                    backgroundColor: 'rgba(25, 73, 63, 1)',
-                    width: '100%',
-                  }}
-                >
-                  <Box width='100%' className="gray cellHorario">
-                    <h3>
-                      Hora {line.hora}
-                    </h3>
-                  </Box>
-                  <br />
-                  <GridSemantic item xs={12}>
-                    <GridRow centered>
-                      <Box
-                        sx={{
-                          p: 2,
-                          borderRadius: 2,
-                          display: 'flex',
-                          gridTemplateColumns: { md: '1fr 1fr' },
-                          gap: 1,
-                          flexWrap: 'wrap',
-                          textAlign: 'center',
-                        }}
-                      >
-                        {line.cells.map((cell, index) => (
-                          <>
-                            {cell.tooltip !== null ? 
-                              <Box
-                                sx={{
-                                  p: 2,
-                                  borderRadius: 2,
-                                  display: 'flex',
-                                  gridTemplateColumns: { md: '1fr 1fr' },
-                                  gap: 1,
-                                  flexWrap: 'wrap',
-                                  textAlign: 'center',
-                                }}
-                                key={index}
-                                className={cell.isGreen === true
-                                  ? "green cellHorario"
-                                  : (cell.tooltip !== null && cell.sumScore > 0) || cell.result === '0-0'
-                                    ? "red cellHorario"
-                                    : "gray cellHorario"}
-                              >
-                                {games.minutes[index].number} min
-                                <br/>
-                                {cell.result}
-                              </Box>
-                              : <></>} 
-                          </>
-                        ))}
-                      </Box>
-                    </GridRow>
-                  </GridSemantic>
-                </Box>
-              </GridRow>
-            </GridSemantic>
-          ))}
-        </GridSemantic>
-      ) : (
-        <></>
-      )}
       <Paper sx={{width: '100%', overflow: 'hidden'}}>
-        <TableContainer>
+        <TableContainer sx={{ maxHeight: 700}}>
+          
+
             {games && FutebolVirtualStore.loadingInitial === false ? (
-              <Table aria-label="sticky tabel" className="tableHorarios">
-                <TableHead>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    {games.minutes.map((minute) => {
-                      return (
-                        <TableCell className="table_header cellHorario" key={keyLine++} align="center">
-                          {minute.number}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {games.lines.map((line) => {
+            <Table aria-label="sticky tabel" className="tableHorarios">
+              <TableHead>
+                <TableRow>
+                  <TableCell></TableCell>
+                  {games.minutes.map((minute) => {
                     return (
-                      <TableRow>
-                        <TableCell className="coluna_esquerda" key={keyLine++}>{line.hora}</TableCell>
-                        {line.cells.map((cell) => {
-                          return (
-                            <TableCell                    
-                              key={keyCell++}
-                              className={
-                                
-                                cell.isGreen === true
-                                  ? "green cellHorario"
-                                  : (cell.tooltip !== null && cell.sumScore > 0) || cell.result === '0-0'
-                                    ? "red cellHorario"
-                                    : "gray cellHorario"
-                              }
-                            >
-                              {cell.result}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
+                      <TableCell className="table_header cellHorario" key={keyLine++} align="center">
+                        {minute.number}
+                      </TableCell>
                     );
                   })}
-                </TableBody>
-              </Table>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {games.lines.map((line) => {
+                  return (
+                    <TableRow>
+                      <TableCell className="coluna_esquerda" key={keyLine++}>{line.hora}</TableCell>
+                      {line.cells.map((cell) => {
+                        return (
+                          <TableCell                    
+                            key={keyCell++}
+                            className={
+                              
+                              cell.isGreen === true
+                                ? "green cellHorario"
+                                : (cell.tooltip !== null && cell.sumScore > 0) || cell.result === '0-0'
+                                  ? "red cellHorario"
+                                  : "gray cellHorario"
+                            }
+                            //textAlign="center"
+                            //size="large"
+                          >
+                            {cell.result}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
           ) : (
             <></>
           )}
