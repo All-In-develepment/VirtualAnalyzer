@@ -3,24 +3,23 @@ import { useStore } from "../../../app/stores/store";
 import { useEffect, useState } from "react";
 import { GameTimes } from "../../../app/models/gameTimes";
 
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
 
-import {Grid, TableRow, ThemeProvider, styled} from '@mui/material';
+import { Grid, TableRow, ThemeProvider, styled } from "@mui/material";
 import GridRow from "semantic-ui-react/dist/commonjs/collections/Grid/GridRow";
 import { Card, CardContent, Grid as GridSemantic } from "semantic-ui-react";
 import { GridColumn } from "semantic-ui-react";
 
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 export default observer(function TimesDashboard() {
   var keyLine = 0;
@@ -60,36 +59,84 @@ export default observer(function TimesDashboard() {
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
     height: 40,
-    lineHeight: '40px',
+    lineHeight: "40px",
   }));
 
   return (
     <>
       <Box sx={{ flexGrow: 1 }} justifyContent="center" alignItems="center">
-        <Grid 
-          container 
-          columns={{ xs: 4, sm: 12, md: 12 }} 
-          justifyContent="center" 
+        <Grid
+          container
+          columns={{ xs: 4, sm: 12, md: 12 }}
+          justifyContent="center"
           alignItems="center"
           item
         >
-          <Grid xs={2} sm={3} md={3} justifyContent="center" alignItems="center" onClick={() => setSelectedTournament("20700663")} className="bannerEuroCopa">
-            <img src="/assets/banners/euro_cup.jpg" alt="Euro Cup" className="leagues_buton" /> 
+          <Grid
+            xs={2}
+            sm={3}
+            md={3}
+            justifyContent="center"
+            alignItems="center"
+            onClick={() => setSelectedTournament("20700663")}
+            className="bannerEuroCopa"
+          >
+            <img
+              src="/assets/banners/euro_cup.jpg"
+              alt="Euro Cup"
+              className="leagues_buton"
+            />
           </Grid>
 
-          <Grid xs={2} sm={3} md={3} justifyContent="center" alignItems="center" onClick={() => setSelectedTournament("20120650")} className="bannerCopaDoMundo">
-            <img src="/assets/banners/copa_do_mundo.jpg" alt="Copa do Mundo" className="leagues_buton" />
+          <Grid
+            xs={2}
+            sm={3}
+            md={3}
+            justifyContent="center"
+            alignItems="center"
+            onClick={() => setSelectedTournament("20120650")}
+            className="bannerCopaDoMundo"
+          >
+            <img
+              src="/assets/banners/copa_do_mundo.jpg"
+              alt="Copa do Mundo"
+              className="leagues_buton"
+            />
           </Grid>
 
-          <Grid xs={2} sm={3} md={3} justifyContent="center" alignItems="center" onClick={() => setSelectedTournament("20120653")} className="bannerPremierShip">
-            <img src="/assets/banners/premiership.jpg" alt="Premier League" className="leagues_buton" />
+          <Grid
+            xs={2}
+            sm={3}
+            md={3}
+            justifyContent="center"
+            alignItems="center"
+            onClick={() => setSelectedTournament("20120653")}
+            className="bannerPremierShip"
+          >
+            <img
+              src="/assets/banners/premiership.jpg"
+              alt="Premier League"
+              className="leagues_buton"
+            />
           </Grid>
 
-          <Grid xs={2} sm={3} md={3} justifyContent="center" alignItems="center" onClick={() => setSelectedTournament("20849528")} className="bannerSuperLeague">
-            <img src="/assets/banners/superleague.jpg" alt="Sul-Americana" className="leagues_buton" />
+          <Grid
+            xs={2}
+            sm={3}
+            md={3}
+            justifyContent="center"
+            alignItems="center"
+            onClick={() => setSelectedTournament("20849528")}
+            className="bannerSuperLeague"
+          >
+            <img
+              src="/assets/banners/superleague.jpg"
+              alt="Sul-Americana"
+              className="leagues_buton"
+            />
           </Grid>
         </Grid>
       </Box>
@@ -122,13 +169,13 @@ export default observer(function TimesDashboard() {
 
           {/* <GridColumn md={8}>
             <Box sx={{ minWidth: 120 }}> */}
-              {/* LEGENDA
+          {/* LEGENDA
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Item>Green</Item>
                 <Item>Red</Item>
                 <Item>Futuros Jogos</Item>
               </Box> */}
-              {/* <FormControl fullWidth>
+          {/* <FormControl fullWidth>
                 <InputLabel id="market-analyzer">Mercado</InputLabel>
                 <Select
                   labelId="market-analyzer"
@@ -149,14 +196,13 @@ export default observer(function TimesDashboard() {
                   <MenuItem value={"UNDER35"}>UNDER 3,5</MenuItem>
                 </Select>
               </FormControl> */}
-            {/* </Box>
+          {/* </Box>
           </GridColumn> */}
         </GridRow>
       </GridSemantic>
       <br />
 
-
-      { games && FutebolVirtualStore.loadingInitial === false ? (
+      {games && FutebolVirtualStore.loadingInitial === false ? (
         <GridSemantic container spacing={2}>
           {games.lines.map((line, index) => (
             <GridSemantic centered item xs={3} key={index}>
@@ -165,19 +211,17 @@ export default observer(function TimesDashboard() {
                   sx={{
                     p: 2,
                     borderRadius: 2,
-                    display: 'flex',
-                    gridTemplateColumns: { md: '1fr 1fr' },
+                    display: "flex",
+                    gridTemplateColumns: { md: "1fr 1fr" },
                     gap: 1,
-                    textAlign: 'center',
-                    flexWrap: 'wrap',
-                    backgroundColor: 'rgba(25, 73, 63, 1)',
-                    width: '100%',
+                    textAlign: "center",
+                    flexWrap: "wrap",
+                    backgroundColor: "rgba(25, 73, 63, 1)",
+                    width: "100%",
                   }}
                 >
-                  <Box width='100%' className="gray cellHorario">
-                    <h3>
-                      Hora {line.hora}
-                    </h3>
+                  <Box width="100%" className="gray cellHorario">
+                    <h3>Hora {line.hora}</h3>
                   </Box>
                   <br />
                   <GridSemantic item xs={12}>
@@ -186,38 +230,44 @@ export default observer(function TimesDashboard() {
                         sx={{
                           p: 2,
                           borderRadius: 2,
-                          display: 'flex',
-                          gridTemplateColumns: { md: '1fr 1fr' },
+                          display: "flex",
+                          gridTemplateColumns: { md: "1fr 1fr" },
                           gap: 1,
-                          flexWrap: 'wrap',
-                          textAlign: 'center',
+                          flexWrap: "wrap",
+                          textAlign: "center",
                         }}
                       >
                         {line.cells.map((cell, index) => (
                           <>
-                            {cell.tooltip !== null ? 
+                            {cell.tooltip !== null ? (
                               <Box
                                 sx={{
                                   p: 2,
                                   borderRadius: 2,
-                                  display: 'flex',
-                                  gridTemplateColumns: { md: '1fr 1fr' },
+                                  display: "flex",
+                                  gridTemplateColumns: { md: "1fr 1fr" },
                                   gap: 1,
-                                  flexWrap: 'wrap',
-                                  textAlign: 'center',
+                                  flexWrap: "wrap",
+                                  textAlign: "center",
                                 }}
                                 key={index}
-                                className={cell.isGreen === true
-                                  ? "green cellHorario"
-                                  : (cell.tooltip !== null && cell.sumScore > 0) || cell.result === '0-0'
+                                className={
+                                  cell.isGreen === true
+                                    ? "green cellHorario"
+                                    : (cell.tooltip !== null &&
+                                        cell.sumScore > 0) ||
+                                      cell.result === "0-0"
                                     ? "red cellHorario"
-                                    : "gray cellHorario"}
+                                    : "gray cellHorario"
+                                }
                               >
                                 {games.minutes[index].number} min
-                                <br/>
+                                <br />
                                 {cell.result}
                               </Box>
-                              : <></>} 
+                            ) : (
+                              <></>
+                            )}
                           </>
                         ))}
                       </Box>
@@ -231,62 +281,61 @@ export default observer(function TimesDashboard() {
       ) : (
         <></>
       )}
-      <Paper sx={{width: '100%', overflow: 'hidden'}}>
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer>
-            {games && FutebolVirtualStore.loadingInitial === false ? (
-              <Table aria-label="sticky tabel" className="tableHorarios">
-                <TableHead>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    {games.minutes.map((minute) => {
-                      return (
-                        <TableCell className="table_header cellHorario" key={keyLine++} align="center">
-                          {minute.number}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {games.lines.map((line) => {
+          {games && FutebolVirtualStore.loadingInitial === false ? (
+            <Table aria-label="sticky tabel" className="tableHorarios">
+              <TableHead>
+                <TableRow>
+                  <TableCell></TableCell>
+                  {games.minutes.map((minute) => {
                     return (
-                      <TableRow>
-                        <TableCell className="coluna_esquerda" key={keyLine++}>{line.hora}</TableCell>
-                        {line.cells.map((cell) => {
-                          return (
-                            <TableCell                    
-                              key={keyCell++}
-                              className={
-                                
-                                cell.isGreen === true
-                                  ? "green cellHorario"
-                                  : (cell.tooltip !== null && cell.sumScore > 0) || cell.result === '0-0'
-                                    ? "red cellHorario"
-                                    : "gray cellHorario"
-                              }
-                            >
-                              {cell.result}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
+                      <TableCell
+                        className="table_header cellHorario"
+                        key={keyLine++}
+                        align="center"
+                      >
+                        {minute.number}
+                      </TableCell>
                     );
                   })}
-                </TableBody>
-              </Table>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {games.lines.map((line) => {
+                  return (
+                    <TableRow>
+                      <TableCell className="coluna_esquerda" key={keyLine++}>
+                        {line.hora}
+                      </TableCell>
+                      {line.cells.map((cell) => {
+                        return (
+                          <TableCell
+                            key={keyCell++}
+                            className={
+                              cell.isGreen === true
+                                ? "green cellHorario"
+                                : (cell.tooltip !== null &&
+                                    cell.sumScore > 0) ||
+                                  cell.result === "0-0"
+                                ? "red cellHorario"
+                                : "gray cellHorario"
+                            }
+                          >
+                            {cell.result}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
           ) : (
             <></>
           )}
-
-          
-
         </TableContainer>
-
       </Paper>
-
-      
-
-      
     </>
   );
 });

@@ -13,6 +13,7 @@ import TimesDashboard from "../../features/futebolVirtualGames/times/TimesDashbo
 import LastGames from "../../features/futebolVirtualGames/lastGames/LastGames";
 import MultiTimesDashboard from "../../features/futebolVirtualGames/times/MultiTimesDashboard";
 import DashboardBetfast from "../../features/betfast/dashboardBetfast";
+import Probabilities from "../../features/futebolVirtualGames/probabilities/Probabilities";
 
 export const routes: RouteObject[] = [
   {
@@ -33,6 +34,7 @@ export const routes: RouteObject[] = [
       { path: "game-multtimes", element: <MultiTimesDashboard /> },
       { path: "last-games", element: <LastGames /> },
       { path: "batfast-league-mode", element: <DashboardBetfast /> },
+      { path: "probabilities", element: <Probabilities /> },
       { path: "*", element: <Navigate replace to="/not-found" /> },
     ],
   },

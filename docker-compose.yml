@@ -1,10 +1,13 @@
 version: "3.4"
 
+name: virtual_analyzer
+
 services:
   backend:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: backend
     restart: always
     environment:
       - TZ=America/Sao_Paulo
@@ -19,9 +22,9 @@ services:
   frontend:
     stdin_open: true
     build:
-      context: ./client-app/.
+      context: client-app/.
       dockerfile: Dockerfile
-    container_name: client-app-analyzer
+    container_name: frontend
     restart: always
     depends_on:
       - backend
