@@ -1,17 +1,33 @@
 // import { Button, Container, Dropdown, Menu, Image } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import { useStore } from "../stores/store";
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 
 const pages = ["Horarios", "Maximas", "Ultimos Jogos"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default observer(function NavBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -36,10 +52,14 @@ export default observer(function NavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src="/assets/logo.png" alt="logo" style={{ marginRight: 10 }} height={50} />
+          <img
+            src="/assets/logo.png"
+            alt="logo"
+            style={{ marginRight: 10 }}
+            height={50}
+          />
           Virtual-Analyzer
-
-          <Box sx={{ flexGrow: 1, display: {xs: "flex", md: "none"} }} >
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -54,23 +74,28 @@ export default observer(function NavBar() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <NavLink to={"/game-times"} >
+                <NavLink to={"/game-times"}>
                   <Typography textAlign="center">Horarios</Typography>
+                </NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <NavLink to={"/probabilities"}>
+                  <Typography textAlign="center">Probabilidades</Typography>
                 </NavLink>
               </MenuItem>
               {/* <MenuItem onClick={handleCloseNavMenu}>
@@ -95,11 +120,19 @@ export default observer(function NavBar() {
               </MenuItem> */}
             </Menu>
           </Box>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <MenuItem onClick={handleCloseNavMenu}>
-              <NavLink to={"/game-times"} >
-                <Typography textAlign="center" className="menuName">Horarios</Typography>
+              <NavLink to={"/game-times"}>
+                <Typography textAlign="center" className="menuName">
+                  Horarios
+                </Typography>
+              </NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleCloseNavMenu}>
+              <NavLink to={"/probabilities"}>
+                <Typography textAlign="center" className="menuName">
+                  Probabilidades
+                </Typography>
               </NavLink>
             </MenuItem>
             {/* <MenuItem onClick={handleCloseNavMenu}>
@@ -123,32 +156,34 @@ export default observer(function NavBar() {
               </NavLink>
             </MenuItem> */}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user?.displayName} src={user?.image || "/assets/user.png"} />
+                <Avatar
+                  alt={user?.displayName}
+                  src={user?.image || "/assets/user.png"}
+                />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu} >
+              <MenuItem onClick={handleCloseUserMenu}>
                 {/* <NavLink to={`/profiles/${user?.username}`} > */}
-                  <Typography textAlign="center">Perfil</Typography>
+                <Typography textAlign="center">Perfil</Typography>
                 {/* </NavLink> */}
               </MenuItem>
               <MenuItem onClick={logout}>
@@ -157,7 +192,7 @@ export default observer(function NavBar() {
             </Menu>
           </Box>
         </Toolbar>
-      </Container>  
+      </Container>
     </AppBar>
   );
 });
